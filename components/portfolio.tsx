@@ -239,7 +239,7 @@ export function PortfolioComponent() {
                 </Button>
               </a>
               <a
-                href="https://twitter.com/_whyshubham"
+                href="https://twitter.com/shubhamkumr_"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-4"
