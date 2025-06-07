@@ -1,15 +1,104 @@
 ---
-title: "Project Two"
-summary: "Lorem ipsum dolor sit amet"
-date: "Mar 17 2022"
+title: "Project-C12: Carbon-Aware Model Router"
+summary: "An intelligent system for selecting the most carbon-efficient AI models using real-time carbon intensity data."
+date: "April 12 2025"
 draft: false
 tags:
-- Svelte
-- Sveltekit
-- Typescript
-- Tailwind
+- Python
+- FastAPI
+- Streamlit
+- Docker
+repoUrl: https://github.com/shubham-kumr/project_carbon
 ---
+Project-C12 is an intelligent system that helps select the most carbon-efficient AI models based on real-time carbon intensity data. It provides a dashboard for monitoring and optimizing model selection to minimize carbon emissions.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
+## ✨ Features
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
+- 🔄 Real-time carbon intensity monitoring
+- 🤖 Smart model selection (TinyLlama, CodeLlama, GPT-2)
+- 📊 Performance metrics visualization
+- 💡 Optimization recommendations
+- 🌍 Carbon footprint tracking
+- 💻 Code-aware query routing
+
+## 🚀 Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/project-c12.git
+cd project-c12
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+pip install -r requirements-dashboard.txt
+```
+
+Run the dashboard:
+
+```bash
+streamlit run src/dashboard/app.py
+```
+
+## 📁 Project Structure
+
+```
+project-c12/
+├── data/
+│   └── metrics.db         # Centralized metrics database
+├── docs/
+│   ├── README.md         # Documentation index
+│   ├── INTRODUCTION.md   # Detailed project overview
+│   └── MASTERPLAN.md     # Project roadmap
+├── monitoring/
+│   └── prometheus.yml    # Prometheus configuration
+├── src/
+│   ├── api/             # FastAPI backend
+│   │   ├── main.py      # API endpoints
+│   │   ├── models/      # AI model files
+│   │   ├── routes/      # API route handlers
+│   │   ├── schemas/     # Data models
+│   │   └── services/    # Core services
+│   └── dashboard/       # Streamlit frontend
+│       ├── app.py       # Dashboard UI
+│       └── data/        # Symlinked to /data
+├── tests/               # Test suite
+├── Dockerfile.api       # API service Dockerfile
+├── Dockerfile.dashboard # Dashboard service Dockerfile
+├── docker-compose.yml   # Service orchestration
+├── requirements.txt     # API dependencies
+└── README.md           # This file
+```
+
+## 🐳 Docker Deployment
+
+The project includes a complete Docker setup for all services:
+
+```bash
+# Build and start all services
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop all services
+docker-compose down
+```
+
+Services will be available at:
+
+- Dashboard: [http://localhost:8501](http://localhost:8501)
+- API: [http://localhost:8000](http://localhost:8000)
+- Prometheus: [http://localhost:9090](http://localhost:9090)
+- Grafana: [http://localhost:3000](http://localhost:3000)
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read our [detailed introduction](../docs/INTRODUCTION.md) to understand the project better.
+
+## 📜 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.

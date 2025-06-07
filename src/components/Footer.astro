@@ -55,14 +55,14 @@ import Container from "@components/Container.astro"
           </div>
   
           <div class="order-1 sm:order-2 flex justify-center sm:justify-end">
-            <div class="flex flex-wrap gap-1 items-center justify-center">
+            <div class="flex flex-wrap gap-1 items-center justify-center sm:w-auto">
               {
-                SOCIALS.map((SOCIAL) => (
+                SOCIALS.slice(0, 5).map((SOCIAL) => (
                   <a 
                     href={SOCIAL.HREF} 
                     target="_blank" 
                     aria-label={`${SITE.TITLE} on ${SOCIAL.NAME}`} 
-                    class="group size-10 rounded-full p-2 items-center justify-center hover:bg-black/5 dark:hover:bg-white/20  blend"
+                    class="group flex items-center justify-center size-10 rounded-full p-2 hover:bg-black/5 dark:hover:bg:white/20 blend"
                   >
                     <svg class="size-full fill-current group-hover:fill-black group-hover:dark:fill-white blend">
                       <use href={`/social.svg#${SOCIAL.ICON}`} />
@@ -70,7 +70,7 @@ import Container from "@components/Container.astro"
                   </a>
                 ))
               }
-              </div>
+            </div>
           </div>
         </div>
       </Container>

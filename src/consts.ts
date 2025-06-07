@@ -82,6 +82,19 @@ export const SOCIALS: Socials = [
     ICON: "icon-ethereum",
     TEXT: "shubhamkumar.base.eth",
     HREF: "https://app.ens.domains/shubhamkumar.base.eth",
+  },
+  {
+    NAME: "Resume",
+    ICON: "icon-resume",
+    TEXT: "Resume",
+    HREF: "https://qsxjz6x9in.ufs.sh/f/H0FOE7olYsTbjjVY6DxB1ATmwNhe7Gn5WjLQr3K94XgCcDZs",
+  }
+  ,
+  {
+    NAME: "LeetCode",
+    ICON: "icon-leetcode",
+    TEXT: "shubham-kumr",
+    HREF: "https://leetcode.com/u/shubham-kumr/"
   }
 ]
 

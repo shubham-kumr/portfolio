@@ -1,16 +1,102 @@
 ---
-title: "Project One"
-summary: "Lorem ipsum dolor sit amet"
-date: "Mar 18 2022"
+title: "NFTVerse - NFT Mint"
+summary: "A full-stack NFT minting dApp on Polygon using Solidity, Hardhat, Node.js, and IPFS."
+date: "April 22 2025"
 draft: false
 tags:
-- Astro
-- Javascript
-- Typescript
-- Tailwind
-- SolidJs
-demoUrl: https://astro-sphere-demo.vercel.app
-repoUrl: https://github.com/markhorn-dev/astro-sphere
+- Solidity
+- Hardhat
+- Node.js
+- Express.js
+- Ethers.js
+- Polygon
+demoUrl: https://opensea.io/assets/matic/0x176875001b4aa9b6fe1439bbe7aea0dc61223190/0
+repoUrl: https://github.com/shubham-kumr/nftverse
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
+NFTVerse is a decentralized application for minting NFTs on the Polygon network. It leverages Solidity smart contracts, Hardhat for development, Node.js/Express.js for backend, and IPFS (via Pinata or NFT.Storage) for decentralized storage.
+
+## 🛠️ Tech Stack
+
+- **Solidity** + **Hardhat**
+- **Node.js** + **Express.js**
+- **HTML**, **CSS**, **JavaScript**
+- **Ethers.js**
+- **IPFS** (Pinata or NFT.Storage)
+- **Polygon**
+
+## ⚙️ Setup Instructions
+
+1. **Clone the repo**
+    ```bash
+    git clone https://github.com/shubham-kumr/nftverse.git
+    cd nftverse
+    ```
+
+2. **Install Dependencies**
+    ```bash
+    npm install
+    ```
+
+3. **Configure Environment**
+
+    Create a `.env` file with:
+    ```
+    PRIVATE_KEY=your_wallet_private_key
+    RPC_URL=https://polygon-mainnet.g.alchemy.com/v2/API-KEY
+    ```
+    > **Important:** Never share your `.env` file or commit it to version control.
+
+4. **Compile the Contract**
+    ```bash
+    npx hardhat compile
+    ```
+
+5. **Deploy**
+    ```bash
+    npx hardhat run scripts/deploy.js --network [network-name]
+    ```
+
+## 🔗 URI Creation via Pinata
+
+1. **Upload the Image**
+    - Go to your Pinata dashboard.
+    - Upload your NFT image (e.g., `my-nft.png`).
+    - Copy the resulting CID (Content Identifier).
+
+2. **Create Metadata JSON**
+    Create a `metadata.json` file:
+    ```json
+    {
+      "name": "Bootcamp Attendance NFT",
+      "description": "This NFT certifies participation in the SHARP Blockchain Bootcamp",
+      "image": "ipfs://<IMAGE_CID>",
+      "attributes": [
+         {
+            "trait_type": "Attendee",
+            "value": "Your Name"
+         },
+         {
+            "trait_type": "Batch",
+            "value": "April 2025"
+         }
+      ]
+    }
+    ```
+
+## 🌐 Tools & Links
+
+- [🔧 Remix IDE](https://remix.ethereum.org/)
+- [🦊 MetaMask](https://metamask.io/)
+- [🔎 PolygonScan](https://polygonscan.com/)
+- [🖼️ OpenSea](https://opensea.io/)
+- [📤 Pinata](https://pinata.cloud/)
+
+## 📸 Sample Output
+
+Once minted, your NFT will appear on OpenSea:  
+`https://opensea.io/assets/matic/0x176875001b4aa9b6fe1439bbe7aea0dc61223190/0`
+
+---
+
+🚀 Happy Building, and welcome to Web3!

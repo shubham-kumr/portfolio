@@ -1,89 +1,101 @@
-![Astro Sphere Lighthouse Score](_astrosphere.jpg)
+# Portfolio
 
-Astro Sphere is a static, minimalist, lightweight, lightning fast portfolio and blog theme based on my personal website.
+A modern, minimalist developer portfolio and blog built with Astro, Tailwind, and TypeScript.
 
-It is primarily Astro, Tailwind and Typescript, with a very small amount of SolidJS for stateful components.
+## 🚀 Tech Stack
 
-## 🚀 Deploy your own
-
-[![Deploy with Vercel](_deploy_vercel.svg)](https://vercel.com/new/clone?repository-url=https://github.com/markhorn-dev/astro-sphere)  [![Deploy with Netlify](_deploy_netlify.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/markhorn-dev/astro-sphere)
+- **Framework**: [Astro](https://astro.build)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com)
+- **Language**: [TypeScript](https://www.typescriptlang.org)
+- **Components**: [SolidJS](https://www.solidjs.com) (for interactive elements)
 
 ## 📋 Features
 
-- ✅ 100/100 Lighthouse performance
-- ✅ Responsive
-- ✅ Accessible
-- ✅ SEO-friendly
-- ✅ Typesafe
-- ✅ Minimal style
-- ✅ Light/Dark Theme
-- ✅ Animated UI
-- ✅ Tailwind styling
-- ✅ Auto generated sitemap
-- ✅ Auto generated RSS Feed
-- ✅ Markdown support
-- ✅ MDX Support (components in your markdown)
-- ✅ Searchable content (posts and projects)
-- ✅ Code Blocks - copy to clipboard
+- ⚡️ Optimized for maximum performance
+- 🎨 Beautiful dark/light theme with smooth transitions
+- 💫 Sleek animations and UI effects
+- 📱 Fully responsive design
+- 🔍 SEO optimized
+- ✍️ Blog with Markdown support
+- 💼 Project showcase
+- 🔎 Full-text search functionality
+- 📊 Work experience timeline
+- 🌟 Interactive UI elements
+- 🔄 RSS feed
+- 🗺️ Auto-generated sitemap
 
-## 💯 Lighthouse score
-![Astro Sphere Lighthouse Score](_lighthouse.png)
+## 💡 Key Sections
 
-## 🕊️ Lightweight
-All pages under 100kb (including fonts)
+- **Blog**: Technical writing on development topics
+- **Projects**: Showcase of development work
+- **Experience**: Professional background
+- **Search**: Full-text search across all content
 
-## ⚡︎ Fast
-Rendered in ~40ms on localhost
+## 🎯 Performance
+- ⚡️ Blazing fast page loads
+- 📱 Responsive across all devices
+- 🌓 Smooth dark/light mode transitions
+- 🎨 Modern, minimalist design
 
-## 📄 Configuration
+## 💻 Running Locally
 
-The blog posts on the demo serve as the documentation and configuration.
+```bash
+git clone https://github.com/shubham-kumr/portfolio
+cd portfolio
+npm install
+npm run dev
+```
 
-## 💻 Commands
+## 🛠️ Development Commands
 
-All commands are run from the root of the project, from a terminal:
+| Command | Description |
+| :--- | :--- |
+| `npm install` | Install dependencies |
+| `npm run dev` | Start dev server at `localhost:4321` |
+| `npm run dev:network` | Start dev server on local network |
+| `npm run build` | Build for production |
+| `npm run preview` | Preview production build |
+| `npm run preview:network` | Preview on local network |
+| `npm run lint` | Run ESLint |
+| `npm run lint:fix` | Fix ESLint issues |
 
-Replace npm with your package manager of choice. `npm`, `pnpm`, `yarn`, `bun`, etc
+## 🌟 Special Features
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run dev:network`     | Starts dev server on local network               |
-| `npm run sync`            | Generates TypeScript types for all Astro modules.|
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run preview:network` | Starts preview server on local network           |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-| `npm run lint`            | Run ESLint                                       |
-| `npm run lint:fix`        | Auto-fix ESLint issues                           |
+### Dark Mode
+- Automatic theme detection
+- Manual theme toggle
+- Smooth transitions
+- Themed UI elements
 
-## 🗺️ Roadmap
+### Animations
+- Particle effects
+- Meteor shower in dark mode
+- Twinkling stars
+- Smooth page transitions
 
-A few features I plan to implement
-- ⬜ Article Pages - Table of Contents
-- ⬜ Article Pages - Share on social media
+### SEO
+- Meta tags
+- Open Graph
+- Twitter Cards
+- Sitemap
+- RSS Feed
 
-## ✨ Acknowledgement
+## 📝 Blog & Projects
 
-Theme inspired by [Paco Coursey](https://paco.me/), [Lee Robinson](https://leerob.io/) and [Hayden Bleasel](https://www.haydenbleasel.com/)
+The portfolio includes a blog and project showcase, both using Markdown for content management:
 
+- **Blog**: Technical articles and development insights
+- **Projects**: Showcase of personal and professional work
+- **Search**: Full-text search across all content
 
-## 🏛️ License
+## 🏗️ Built With
 
-MIT
+- [Astro](https://astro.build) - Core framework
+- [Tailwind CSS](https://tailwindcss.com) - Styling
+- [TypeScript](https://www.typescriptlang.org) - Type safety
+- [SolidJS](https://www.solidjs.com) - Interactive components
 
+## 📄 License
 
-# 1.0.1 Update
-
-Added ability to run dev and preview on local network.
-added npm run dev:network
-added npm run preview:network
-
-Added slightly more particle density in both light and dark mode.
-
-Added subtle dark mode star and meteor animations.
-
-Removed eslint config
+MIT License - feel free to use this code for your own portfolio!
 
