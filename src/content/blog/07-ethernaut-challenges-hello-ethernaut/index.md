@@ -1,7 +1,7 @@
 ---
 title: "Hello Ethernaut – Level 0 Walkthrough"
 summary: "Step-by-step walkthrough for the first Ethernaut wargame level. Learn to interact with smart contracts, uncover passwords, and authenticate using JavaScript in your browser."
-date: "Jun 3 2025"
+date: "Jun 22 2025"
 tags:
 - Ethereum
 - Smart Contracts
