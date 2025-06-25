@@ -155,8 +155,3 @@ fallbackInstance.withdraw();
 - [Ethernaut Game](https://ethernaut.openzeppelin.com/)
 - [YouTube Walkthrough](https://www.youtube.com/watch?v=TQKj2xvsGec)
 ---
-
-## 🏁 Next Steps
-
-Congratulations! You’ve just completed the Fallback level of Ethernaut.  
-Move on to the next challenge to keep learning smart contract security!

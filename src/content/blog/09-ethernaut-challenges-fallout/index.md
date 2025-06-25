@@ -121,8 +121,3 @@ Click **“Submit instance”** in the UI and confirm the MetaMask transaction. 
 - [Ethernaut Game](https://ethernaut.openzeppelin.com/)
 - [YouTube Walkthrough](https://www.youtube.com/watch?v=1E0BTVudurM)
 ---
-
-## 🏁 Next Steps
-
-Great job! You’ve completed the second level of Ethernaut.  
-Continue to the next challenge to deepen your smart contract security skills!

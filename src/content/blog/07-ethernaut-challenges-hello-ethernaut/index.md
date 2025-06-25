@@ -144,8 +144,3 @@ Click **“Submit instance”** in the UI and confirm the MetaMask transaction. 
 - [Video Walkthrough](https://www.youtube.com/watch?v=Hzu36mTJLeA)
 
 ---
-
-## 🏁 Next Steps
-
-Congratulations! You’ve just completed the first level of Ethernaut.  
-Move on to the next level to keep learning smart contract security!
