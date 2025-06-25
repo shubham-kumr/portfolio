@@ -1,7 +1,7 @@
 ---
 title: "Coin Flip – Level 3 Walkthrough"
 summary: "Step-by-step walkthrough for the third Ethernaut wargame level. Learn to exploit pseudo-randomness vulnerabilities, predict coin flips, and automate attacks on deterministic smart contracts."
-date: "Jun 24 2025"
+date: "Jun 25 2025"
 tags:
 - Ethereum
 - Smart Contracts
