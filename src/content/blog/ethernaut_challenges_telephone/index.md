@@ -1,5 +1,5 @@
 ---
-title: "Telephone – Level 6 Walkthrough"
+title: "Telephone – Level 4 Walkthrough"
 summary: "Step-by-step walkthrough for the Telephone Ethernaut level. Learn to exploit tx.origin misuse in smart contract access control and become the contract owner."
 date: "Jun 26 2025"
 tags:
@@ -10,7 +10,7 @@ tags:
 - Walkthrough
 ---
 
-# Telephone – Level 6 Walkthrough
+# Telephone – Level 4 Walkthrough
 
 Welcome to the **Telephone** level of the [**Ethernaut**](https://ethernaut.openzeppelin.com/) wargame by OpenZeppelin, focused on understanding **`tx.origin` misuse** in access control.
 
