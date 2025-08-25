@@ -87,7 +87,7 @@ export const SOCIALS: Socials = [
     NAME: "Resume",
     ICON: "icon-resume",
     TEXT: "Resume",
-    HREF: "https://qsxjz6x9in.ufs.sh/f/H0FOE7olYsTbjjVY6DxB1ATmwNhe7Gn5WjLQr3K94XgCcDZs",
+    HREF: "https://drive.google.com/file/d/134iCB3Sub08e1JGJnJvEoTF0mpIUClPX/view?usp=sharing",
   }
   ,
   {
@@ -95,6 +95,18 @@ export const SOCIALS: Socials = [
     ICON: "icon-leetcode",
     TEXT: "shubham-kumr",
     HREF: "https://leetcode.com/u/shubham-kumr/"
+  },
+  {
+    NAME: "Try Hack Me",
+    ICON: "icon-tryhackme",
+    TEXT: "shubhamkumr",
+    HREF: "https://tryhackme.com/p/shubhamkumr"
+  },
+  {
+    NAME: "Hackviser",
+    ICON: "icon-hackviser",
+    TEXT: "shubhamkumar",
+    HREF: "https://app.hackviser.com/profile/shubhamkumar"
   }
 ]
 
