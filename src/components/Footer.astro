@@ -57,7 +57,7 @@ import Container from "@components/Container.astro"
           <div class="order-1 sm:order-2 flex justify-center sm:justify-end">
             <div class="flex flex-wrap gap-1 items-center justify-center sm:w-auto">
               {
-                SOCIALS.slice(0, 5).map((SOCIAL) => (
+                SOCIALS.filter(SOCIAL => SOCIAL.NAME !== "Resume").slice(0, 5).map((SOCIAL) => (
                   <a 
                     href={SOCIAL.HREF} 
                     target="_blank" 

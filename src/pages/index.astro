@@ -9,36 +9,23 @@ import MeteorShower from "@components/MeteorShower.astro"
 
 const posts = (await getCollection("blog"))
   .filter(post => !post.data.draft)
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
   .slice(0,3)
 
-const projects = (await getCollection("projects"))
-  .filter(project => !project.data.draft)
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0,3)
+const asciiArt = String.raw`
+      ___           ___           ___           ___           ___           ___           ___     
+     /\  \         /\__\         /\__\         /\  \         /\__\         /\  \         /\__\    
+    /::\  \       /:/  /        /:/  /        /::\  \       /:/  /        /::\  \       /::|  |   
+   /:/\ \  \     /:/__/        /:/  /        /:/\:\  \     /:/__/        /:/\:\  \     /:|:|  |   
+  _\:\~\ \  \   /::\  \ ___   /:/  /  ___   /::\~\:\__\   /::\  \ ___   /::\~\:\  \   /:/|:|__|__ 
+ /\ \:\ \ \__\ /:/\:\  /\__\ /:/__/  /\__\ /:/\:\ \:|__| /:/\:\  /\__\ /:/\:\ \:\__\ /:/ |::::\__\
+ \:\ \:\ \/__/ \/__\:\/:/  / \:\  \ /:/  / \:\~\:\/:/  / \/__\:\/:/  / \/__\:\/:/  / \/__/~~/:/  /
+  \:\ \:\__\        \::/  /   \:\  /:/  /   \:\ \::/  /       \::/  /       \::/  /        /:/  / 
+   \:\/:/  /        /:/  /     \:\/:/  /     \:\/:/  /        /:/  /        /:/  /        /:/  /  
+    \::/  /        /:/  /       \::/  /       \::/__/        /:/  /        /:/  /        /:/  /   
+     \/__/         \/__/         \/__/         ~~            \/__/         \/__/         \/__/    
+`;
 
-const stack = [
-  { 
-    text: "Astro", 
-    icon: "astro", 
-    href: "https://astro.build" 
-  },
-  { 
-    text: "Javascript", 
-    icon: "javascript", 
-    href: "https://www.javascript.com" 
-  },
-  { 
-    text: "Typescript", 
-    icon: "typescript", 
-    href: "https://www.typescriptlang.org" 
-  },
-  { 
-    text: "Tailwind", 
-    icon: "tailwind", 
-    href: "https://tailwindcss.com" 
-  },
-]
 ---
 
 <PageLayout title="Home" description={SITE.DESCRIPTION}>
@@ -67,42 +54,53 @@ const stack = [
 
   <script is:inline src="/js/bg.js"></script>
   
+  <style>
+    @keyframes wave {
+      0% { transform: rotate(0.0deg) }
+      10% { transform: rotate(14.0deg) }
+      20% { transform: rotate(-8.0deg) }
+      30% { transform: rotate(14.0deg) }
+      40% { transform: rotate(-4.0deg) }
+      50% { transform: rotate(10.0deg) }
+      60% { transform: rotate(0.0deg) }
+      100% { transform: rotate(0.0deg) }
+    }
+    .animate-wave {
+      animation: wave 2.5s infinite;
+      transform-origin: 70% 70%;
+      display: inline-block;
+    }
+  </style>
+
   <!-- HERO -->
-  <section class="relative h-screen w-full">
-    <div id="planetcont" class='animate absolute inset-0 top-1/4 overflow-hidden'>
-      <div id="crescent" class='absolute top-0 left-1/2 -translate-x-1/2 w-[250vw] min-h-[100vh] aspect-square rounded-full p-[1px] bg-gradient-to-b from-black/25 dark:from-white/75 from-0% to-transparent to-5%'>
-        <div id="planet" class='w-full h-full bg-white dark:bg-black rounded-full p-[1px] overflow-hidden flex justify-center'>
-          <div id="blur" class='w-full h-20 rounded-full bg-neutral-900/25 dark:bg-white/25 blur-3xl'/>
-        </div>
+  <section class="relative h-screen w-full flex flex-col items-center justify-center">
+    <div class="animate flex flex-col items-center justify-center w-full max-w-full px-5">
+      
+
+
+      <!-- ASCII Art Centered -->
+      <div id="ascii-art" class="flex justify-center w-full overflow-hidden mb-6">
+        <pre class="font-mono text-[6px] sm:text-[9px] md:text-[12px] lg:text-[14px] xl:text-[16px] text-black dark:text-white leading-[1.1] whitespace-pre font-bold" set:text={asciiArt} />
       </div>
-    </div>
-    <div class="animate absolute h-full w-full flex items-center justify-center">
-      <div class='relative w-full h-full flex items-center justify-center'>
-        <div class='p-5 text-center'>
-          <p class='animated text-xl md:text-2xl lg:text-3xl font-semibold opacity-75'>
-            Hello, I am
-          </p>
-          <p class='animated text-2xl md:text-3xl lg:text-4xl font-bold uppercase text-black dark:text-white'>
-            shubham kumar
-          </p>
-          <p class='animated text-sm md:text-base lg:text-lg opacity-75'>
-            intern at techmatrix consulting, developer and learning cyber security
-          </p>
-          <div id="ctaButtons" class='animated flex flex-wrap gap-4 justify-center mt-5'>
-            <a href='https://drive.google.com/file/d/134iCB3Sub08e1JGJnJvEoTF0mpIUClPX/view?usp=sharing' target="_blank" rel="noopener noreferrer" class='py-2 px-4 rounded truncate text-xs md:text-sm lg:text-base bg-black dark:bg-white text-white dark:text-black hover:opacity-75 blend'>
-              View Resume
-            </a>
-            <a href='/projects' class='py-2 px-4 truncate rounded text-xs md:text-sm lg:text-base border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 blend'>
-              View my project
-            </a>
-          </div>
-          <div class="mt-3 text-xs md:text-sm lg:text-base text-center">
-            <span>Want to connect? </span>
-            <a href="#lets-connect" class="underline decoration-[.5px] decoration-zinc-500 text-zinc-500 hover:text-zinc-300 transition" onclick="event.preventDefault();document.getElementById('lets-connect').scrollIntoView({ behavior: 'smooth' })">Let's Connect</a>
-          </div>
-          </div>
-        </div>
+
+      <!-- TL;DR -->
+      <p class="text-base md:text-lg lg:text-xl opacity-75 text-center mt-2 max-w-lg">
+        <i><b>Cybersecurity</b> learner focused on <b>vulnerability assessment</b> and <b>system security</b>.</i>
+      </p>
+
+      <!-- View Resume Button (ASCII Style) -->
+      <div class="mt-8 flex gap-4">
+        <a href="https://drive.google.com/file/d/134iCB3Sub08e1JGJnJvEoTF0mpIUClPX/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="font-mono text-sm md:text-base border border-current px-4 py-2 rounded-full text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors blend">
+          [View Resume]
+        </a>
       </div>
+      
+      <!-- Connect CTA -->
+      <div class="mt-6 text-xs md:text-sm text-center">
+         <span>Want to connect? </span>
+         <a href="#lets-connect" class="underline decoration-[.5px] decoration-zinc-500 text-zinc-500 hover:text-zinc-300 transition" onclick="event.preventDefault();document.getElementById('lets-connect').scrollIntoView({ behavior: 'smooth' })">Let's Connect</a>
+      </div>
+
     </div>
   </section>
 
@@ -113,36 +111,23 @@ const stack = [
       <section class="animate">
 <article>
   <p>
-    I am a <b><i>full-stack developer</i></b>, <b><i>UI/UX enthusiast</i></b>, 
-    <b><i>cybersecurity learner</i></b>, <b><i>creative thinker</i></b>, 
-    <b><i>4th-year Computer Science student</i></b>, <b><i>tech explorer</i></b>, 
-    and <b><i>lifelong learner</i></b>.
+    I am a <b><i>Computer Science undergraduate</i></b> with a strong focus on <b><i>cybersecurity</i></b>, complemented by a background in <b><i>full-stack development</i></b>. My work centers on understanding how systems function, identifying where they fail, and applying secure development practices to build resilient applications.
   </p>
 
   <p>
-    I love building things from scratch — solving real-world problems with clean design, 
-    functional code, and secure systems. My focus goes beyond just usability; I’m equally 
-    interested in ensuring the applications I build are resilient against security threats.
+    Ranked in the <b><i>top 1% globally on TryHackMe</i></b>, I have completed 200+ hands-on labs covering <b><i>penetration testing</i></b>, <b><i>vulnerability assessment</i></b>, and <b><i>defensive security</i></b>. This practical exposure allows me to approach problems with an <b><i>attacker’s mindset</i></b> while implementing solutions as a developer.
   </p>
 
   <p>
-    Over the years, I've worked on a variety of projects, including personal websites, 
-     and full-stack applications — always focused on writing clean code, 
-    creating enjoyable user experiences, and strengthening application security.
+    I have experience working with industry-standard tools such as <b><i>Burp Suite</i></b>, <b><i>OWASP ZAP</i></b>, <b><i>Nmap</i></b>, <b><i>Wireshark</i></b>, and <b><i>Metasploit</i></b> to analyze, exploit, and secure systems in controlled environments.
   </p>
 
-  <p>
-    Alongside development, I actively explore <b><i>cybersecurity</i></b>, learning 
-    penetration testing, vulnerability assessment, and defensive strategies. This helps me 
-    approach projects with a dual mindset — building innovative solutions while also 
-    protecting them from real-world threats.
-  </p>
+  <!-- <p>
+    Alongside cybersecurity, I continue to build full-stack applications with a strong emphasis on <b><i>clean code</i></b>, <b><i>intuitive user experience</i></b>, and <b><i>secure architecture</i></b>. My approach combines development and security—ensuring that the systems I create are not only functional and user-friendly, but also resilient against real-world threats.
+  </p> -->
 
   <p>
-    Currently, I'm pursuing my Bachelor's degree in Computer Science from 
-    Lloyd Institute of Engineering and Technology, Greater Noida, and working on 
-    personal projects to sharpen my skills in web development, design, problem-solving, 
-    and cybersecurity.
+    I am currently pursuing my <b><i>Bachelor’s degree in Computer Science</i></b> from <b><i>Lloyd Institute of Engineering and Technology</i></b>, Greater Noida, while continuously improving my skills through practical projects and structured learning paths.
   </p>
 </article>
 </section>
@@ -171,54 +156,7 @@ const stack = [
         </div>
       </section>
 
-      <!-- Tech Stack Section -->
-      <section class="animate">
-        <div class="space-y-4">
-          <p class="font-semibold text-black dark:text-white">
-            Website build with
-          </p>
-          <div class="flex flex-wrap items-center gap-2 mt-5">
-            {stack.map(item => (
-              <StackCard 
-                text={item.text}
-                icon={item.icon}
-                href={item.href}
-              />
-            ))}
-          </div>
-          <div>
-            Performing reactivity and statefulness, special guest
-            <a href="https://www.solidjs.com/" target="_blank" class="w-fit group underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
-              <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
-                SolidJS
-              </span>
-            </a>
-          </div>
-        </div>
-      </section>
 
-      <!-- Project Preview Section -->
-      <section class="animate">
-        <div class="space-y-4">
-          <div class="flex justify-between">
-            <p class="font-semibold text-black dark:text-white">
-              Recent projects
-            </p>
-            <a href="/projects" class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
-              <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
-                All projects
-              </span>
-            </a>
-          </div>
-          <ul class="space-y-4">
-            {projects.map((project) => (
-              <li>
-                <ArrowCard entry={project} />
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
 
       <!-- Contact Section -->
   <section class="animate" id="lets-connect">

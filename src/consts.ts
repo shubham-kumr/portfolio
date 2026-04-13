@@ -33,22 +33,18 @@ export const SEARCH: Page = {
 
 // Links
 export const LINKS: Links = [
-  { 
-    TEXT: "Home", 
-    HREF: "/", 
-  },
+  // { 
+  //   TEXT: "Home", 
+  //   HREF: "/", 
+  // },
   // { 
   //   TEXT: "Work", 
   //   HREF: "/work", 
   // },
-  { 
-    TEXT: "Blog", 
-    HREF: "/blog", 
-  },
-  { 
-    TEXT: "Projects", 
-    HREF: "/projects", 
-  },
+  // { 
+  //   TEXT: "Blog", 
+  //   HREF: "/blog", 
+  // },
 ]
 
 // Socials
@@ -77,12 +73,7 @@ export const SOCIALS: Socials = [
     TEXT: "shubhamkumr_",
     HREF: "https://twitter.com/shubhamkumr_",
   },
-  {
-    NAME: "ENS",
-    ICON: "icon-ethereum",
-    TEXT: "shubhamkumar.base.eth",
-    HREF: "https://app.ens.domains/shubhamkumar.base.eth",
-  },
+
   {
     NAME: "Resume",
     ICON: "icon-resume",
@@ -101,12 +92,6 @@ export const SOCIALS: Socials = [
     ICON: "icon-tryhackme",
     TEXT: "shubhamkumr",
     HREF: "https://tryhackme.com/p/shubhamkumr"
-  },
-  {
-    NAME: "Hackviser",
-    ICON: "icon-hackviser",
-    TEXT: "shubhamkumar",
-    HREF: "https://app.hackviser.com/profile/shubhamkumar"
   }
 ]
 
