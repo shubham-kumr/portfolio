@@ -1,7 +1,7 @@
 ---
 title: "TryHackMe — Linux Privilege Escalation Walkthrough"
 summary: "This room teaches **8 core Linux privilege escalation techniques** — the most important post-exploitation skill in pentesting. You start as a low-priv..."
-date: "2026-02-16"
+date: "2026-03-16"
 tags: ["tryhackme","walkthrough"]
 ---
 

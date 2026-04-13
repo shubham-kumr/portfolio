@@ -1,7 +1,7 @@
 ---
 title: "TryHackMe — Kenobi Walkthrough"
 summary: "Kenobi is a beginner Linux box themed around Star Wars. The attack chain is a clean example of how chaining together multiple low-severity misconfigur..."
-date: "2026-02-13"
+date: "2026-03-23"
 tags: ["tryhackme","walkthrough"]
 ---
 
