@@ -24,14 +24,14 @@ const next = items[(index + 1) % items.length]
     <Content/>
   </article>
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-    <a href={`/${prev.collection}/${prev.slug}`} class="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 blend">
-      <div class="order-2 w-full h-full group-hover:text-black group-hover:dark:text-white blend">
+    <a href={`/${prev.collection}/${prev.slug}`} class="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-brand-text/15 blend">
+      <div class="order-2 w-full h-full group-hover:text-brand-text blend">
         <div class="flex flex-wrap gap-2">
           <div class="text-sm uppercase">
             Prev
           </div>
         </div>
-        <div class="font-semibold mt-3 text-black dark:text-white">
+        <div class="font-semibold mt-3 text-brand-text">
           {prev.data.title}
         </div>
       </div>
@@ -40,12 +40,12 @@ const next = items[(index + 1) % items.length]
         <polyline points="12 5 19 12 12 19" class="translate-x-0 group-hover:translate-x-1 transition-all duration-300 ease-in-out" />
       </svg>
     </a>
-    <a href={`/${next.collection}/${next.slug}`} class="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out">
-      <div class="w-full h-full text-right group-hover:text-black group-hover:dark:text-white blend">
+    <a href={`/${next.collection}/${next.slug}`} class="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-brand-text/15 transition-colors duration-300 ease-in-out">
+      <div class="w-full h-full text-right group-hover:text-brand-text blend">
         <div class="text-sm uppercase">
           Next
         </div>
-        <div class="font-semibold mt-3 text-black dark:text-white">
+        <div class="font-semibold mt-3 text-brand-text">
           {next.data.title}
         </div>
       </div>

@@ -24,24 +24,72 @@
   }
 }
 
-html {
-  overflow-y: scroll;
+html[data-theme="light"] {
+  --brand-bg: 255 255 255;
+  --brand-text: 0 0 0;
   color-scheme: light;
   background-color: white;
-  font-family: "Atkinson", sans-serif;
-  
 }
 
-html.dark {
+html[data-theme="dark"] {
+  --brand-bg: 0 0 0;
+  --brand-text: 255 255 255;
   color-scheme: dark;
   background-color: black;
+}
+
+html[data-theme="dracula"] {
+  --brand-bg: 40 42 54;
+  --brand-text: 248 248 242;
+  color-scheme: dark;
+  background-color: #282a36;
+}
+
+html[data-theme="retro"] {
+  --brand-bg: 244 236 216;
+  --brand-text: 51 51 51;
+  color-scheme: light;
+  background-color: #f4ecd8;
+}
+
+html[data-theme="neon"] {
+  --brand-bg: 13 2 33;
+  --brand-text: 0 255 204;
+  color-scheme: dark;
+  background-color: #0d0221;
+}
+
+html[data-theme="solarized-light"] {
+  --brand-bg: 253 246 227;
+  --brand-text: 101 123 131;
+  color-scheme: light;
+  background-color: #fdf6e3;
+}
+
+html[data-theme="solarized-dark"] {
+  --brand-bg: 0 43 54;
+  --brand-text: 131 148 150;
+  color-scheme: dark;
+  background-color: #002b36;
+}
+
+html[data-theme="gruvbox"] {
+  --brand-bg: 40 40 40;
+  --brand-text: 235 219 178;
+  color-scheme: dark;
+  background-color: #282828;
+}
+
+html {
+  overflow-y: scroll;
+  font-family: "Atkinson", sans-serif;
 }
 
 html,
 body {
   @apply h-full w-full antialiased;
-  @apply bg-white dark:bg-black;
-  @apply text-black/75 dark:text-white/75;
+  @apply bg-brand-bg;
+  @apply text-brand-text/75;
 }
 
 body {
@@ -49,7 +97,7 @@ body {
 }
 
 main {
-  @apply flex flex-col flex-1 bg-white dark:bg-black;
+  @apply flex flex-col flex-1 bg-brand-bg;
 }
 
 header {
@@ -62,17 +110,17 @@ header:not(.scrolled) {
 }
 
 header.scrolled {
-  @apply bg-white/75 dark:bg-black/50;
-  @apply border-black/10 dark:border-white/25;
+  @apply bg-brand-bg/75;
+  @apply border-brand-text/15;
   @apply backdrop-blur-sm saturate-200;
 }
 
 article {
-  @apply prose dark:prose-invert max-w-full pb-12;
+  @apply prose text-brand-text prose-headings:text-brand-text prose-a:text-brand-text hover:prose-a:text-brand-text/75 prose-strong:text-brand-text prose-code:text-brand-text prose-blockquote:text-brand-text/75 max-w-full pb-12;
 }
 
 .page-heading {
-  @apply font-semibold text-black dark:text-white;
+  @apply font-semibold text-brand-text;
 }
 
 .blend {
@@ -166,3 +214,4 @@ article img {
 .copy-svg {
   @apply w-full aspect-square text-white opacity-70 hover:opacity-90;
 }
+

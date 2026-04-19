@@ -6,6 +6,12 @@ export default {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
     extend: {
+      colors: {
+        brand: {
+          bg: "rgb(var(--brand-bg) / <alpha-value>)",
+          text: "rgb(var(--brand-text) / <alpha-value>)",
+        },
+      },
       fontFamily: {
         "sans": ["Atkinson", ...defaultTheme.fontFamily.sans],
       },

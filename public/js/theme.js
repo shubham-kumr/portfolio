@@ -1,9 +1,12 @@
+const themes = ["dark", "dracula", "neon", "solarized-dark", "gruvbox", "retro", "solarized-light", "light"];
+
 function changeTheme() {
-  const element = document.documentElement
-  const theme = element.classList.contains("dark") ? "light" : "dark"
+  const element = document.documentElement;
+  const currentTheme = element.getAttribute("data-theme") || "dark";
+  const currentIndex = themes.indexOf(currentTheme);
+  const nextTheme = themes[(currentIndex + 1) % themes.length];
 
-  const css = document.createElement("style")
-
+  const css = document.createElement("style");
   css.appendChild(
     document.createTextNode(
       `* {
@@ -12,56 +15,59 @@ function changeTheme() {
            -o-transition: none !important;
            -ms-transition: none !important;
            transition: none !important;
-        }`,
-    ),
-  )
-  document.head.appendChild(css)
+        }`
+    )
+  );
+  document.head.appendChild(css);
 
-  if (theme === "dark") {
-    element.classList.add("dark")
+  element.setAttribute("data-theme", nextTheme);
+  
+  // Keep standard dark class for Tailwind typography plugin or other unforeseen dependencies
+  if (nextTheme === "dark" || nextTheme === "dracula" || nextTheme === "neon" || nextTheme === "solarized-dark" || nextTheme === "gruvbox") {
+     element.classList.add("dark")
   } else {
-    element.classList.remove("dark")
+     element.classList.remove("dark")
   }
 
-  window.getComputedStyle(css).opacity
-  document.head.removeChild(css)
-  localStorage.theme = theme
+  window.getComputedStyle(css).opacity;
+  document.head.removeChild(css);
+  localStorage.theme = nextTheme;
 }
 
 function preloadTheme() {
   const theme = (() => {
-    const userTheme = localStorage.theme
-
-    if (userTheme === "light" || userTheme === "dark") {
-      return userTheme
+    const userTheme = localStorage.theme;
+    if (themes.includes(userTheme)) {
+      return userTheme;
     } else {
-      return "dark"
+      return "dark"; // Default theme
     }
-  })()
+  })();
 
-  const element = document.documentElement
-
-  if (theme === "dark") {
-    element.classList.add("dark")
+  const element = document.documentElement;
+  element.setAttribute("data-theme", theme);
+  
+  if (theme === "dark" || theme === "dracula" || theme === "neon" || theme === "solarized-dark" || theme === "gruvbox") {
+     element.classList.add("dark")
   } else {
-    element.classList.remove("dark")
+     element.classList.remove("dark")
   }
 
-  localStorage.theme = theme
+  localStorage.theme = theme;
 }
 
 window.onload = () => {
   function initializeThemeButtons() {
-    const headerThemeButton = document.getElementById("header-theme-button")
-    const drawerThemeButton = document.getElementById("drawer-theme-button")
-    headerThemeButton?.addEventListener("click", changeTheme)
-    drawerThemeButton?.addEventListener("click", changeTheme)
+    const headerThemeButton = document.getElementById("header-theme-button");
+    const drawerThemeButton = document.getElementById("drawer-theme-button");
+    headerThemeButton?.addEventListener("click", changeTheme);
+    drawerThemeButton?.addEventListener("click", changeTheme);
   } 
   
-  document.addEventListener("astro:after-swap", initializeThemeButtons)
-  initializeThemeButtons()
+  document.addEventListener("astro:after-swap", initializeThemeButtons);
+  initializeThemeButtons();
 }
 
-document.addEventListener("astro:after-swap", preloadTheme)
+document.addEventListener("astro:after-swap", preloadTheme);
 
-preloadTheme()
+preloadTheme();

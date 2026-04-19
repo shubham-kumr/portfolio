@@ -80,7 +80,7 @@ const asciiArt = String.raw`
 
       <!-- ASCII Art Centered -->
       <div id="ascii-art" class="flex justify-center w-full overflow-hidden mb-6">
-        <pre class="font-mono text-[6px] sm:text-[9px] md:text-[12px] lg:text-[14px] xl:text-[16px] text-black dark:text-white leading-[1.1] whitespace-pre font-bold" set:text={asciiArt} />
+        <pre class="font-mono text-[6px] sm:text-[9px] md:text-[12px] lg:text-[14px] xl:text-[16px] text-brand-text leading-[1.1] whitespace-pre font-bold" set:text={asciiArt} />
       </div>
 
       <!-- TL;DR -->
@@ -90,7 +90,7 @@ const asciiArt = String.raw`
 
       <!-- View Resume Button (ASCII Style) -->
       <div class="mt-8 flex gap-4">
-        <a href="https://drive.google.com/file/d/134iCB3Sub08e1JGJnJvEoTF0mpIUClPX/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="font-mono text-sm md:text-base border border-current px-4 py-2 rounded-full text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors blend">
+        <a href="https://drive.google.com/file/d/134iCB3Sub08e1JGJnJvEoTF0mpIUClPX/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="font-mono text-sm md:text-base border border-current px-4 py-2 rounded-full text-brand-text hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors blend">
           [View Resume]
         </a>
       </div>
@@ -104,7 +104,7 @@ const asciiArt = String.raw`
     </div>
   </section>
 
-  <div class="relative bg-white dark:bg-black">
+  <div class="relative bg-brand-bg">
     <div class="mx-auto max-w-screen-sm p-5 space-y-24 pb-16">
 
       <!-- About Section -->
@@ -137,11 +137,11 @@ const asciiArt = String.raw`
       <section class="animate">
         <div class="space-y-4">
           <div class="flex justify-between">
-            <p class="font-semibold text-black dark:text-white">
+            <p class="font-semibold text-brand-text">
               Recent posts
             </p>
-            <a href="/blog" class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
-              <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
+            <a href="/blog" class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-brand-text underline-offset-2 blend">
+              <span class="text-brand-text/75 group-hover:text-brand-text blend">
                 All posts
               </span>
             </a>
@@ -161,7 +161,7 @@ const asciiArt = String.raw`
       <!-- Contact Section -->
   <section class="animate" id="lets-connect">
         <div>
-          <p class="font-semibold text-black dark:text-white">
+          <p class="font-semibold text-brand-text">
             Let's Connect
           </p>
           <p>
@@ -175,8 +175,8 @@ const asciiArt = String.raw`
                 </span>
               </div>
               <div class="col-span-3 truncate">
-                <a href={social.HREF} target="_blank" class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
-                  <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
+                <a href={social.HREF} target="_blank" class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-brand-text underline-offset-2 blend">
+                  <span class="text-brand-text/75 group-hover:text-brand-text blend">
                     {social.TEXT}
                   </span>
                 </a>
