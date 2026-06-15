@@ -6,23 +6,7 @@
   --copy-btn-margin:10px;
 }
 
-@layer base {
-  @font-face {
-    font-family: "Atkinson";
-    src: url("/fonts/atkinson-regular.woff") format("woff");
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
-  
-  @font-face {
-    font-family: "Atkinson";
-    src: url("/fonts/atkinson-bold.woff") format("woff");
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-  }
-}
+
 
 html[data-theme="light"] {
   --brand-bg: 255 255 255;
@@ -81,8 +65,8 @@ html[data-theme="gruvbox"] {
 }
 
 html {
-  overflow-y: scroll;
-  font-family: "Atkinson", sans-serif;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
 }
 
 html,
@@ -90,29 +74,61 @@ body {
   @apply h-full w-full antialiased;
   @apply bg-brand-bg;
   @apply text-brand-text/75;
+  margin: 0;
 }
 
 body {
-  @apply relative flex flex-col;
+  @apply relative;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
 }
 
 main {
   @apply flex flex-col flex-1 bg-brand-bg;
 }
 
-header {
-  @apply border-b;
-  @apply transition-all duration-300 ease-in-out;
+/* Centered site wrapper */
+.site-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 900px;
+  height: 100vh;
+  position: relative;
+  margin: 0 auto;
 }
 
-header:not(.scrolled) {
-  @apply bg-transparent border-transparent;
+/* Main content area */
+.main-content {
+  flex: 1;
+  height: 100vh;
+  overflow-y: auto;
+  min-width: 0;
+  border-right: 1px solid rgb(var(--brand-text) / 0.1);
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+.main-content::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
-header.scrolled {
-  @apply bg-brand-bg/75;
-  @apply border-brand-text/15;
-  @apply backdrop-blur-sm saturate-200;
+/* Tablet: collapse sidebar, keep right border */
+@media (max-width: 1024px) {
+  .site-wrapper {
+    max-width: 100%;
+  }
+}
+
+/* Mobile: stack layout, remove right border */
+@media (max-width: 768px) {
+  .site-wrapper {
+    flex-direction: column;
+  }
+  .main-content {
+    padding-top: 56px;
+    border-right: none;
+  }
 }
 
 article {
@@ -214,4 +230,3 @@ article img {
 .copy-svg {
   @apply w-full aspect-square text-white opacity-70 hover:opacity-90;
 }
-

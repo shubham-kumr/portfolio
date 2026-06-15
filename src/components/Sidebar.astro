@@ -1,0 +1,294 @@
+---
+import { SITE, LINKS } from "@consts";
+import { cn } from "@lib/utils";
+const { pathname } = Astro.url;
+const subpath = pathname.match(/[^/]+/g);
+---
+
+<aside id="sidebar" class="sidebar">
+  <nav class="sidebar-nav">
+    {
+      LINKS.map((LINK) => (
+        <a
+          href={LINK.HREF}
+          class={cn(
+            "sidebar-link",
+            (pathname === LINK.HREF || "/" + subpath?.[0] === LINK.HREF)
+              ? "active"
+              : "",
+          )}
+        >
+          <span class="sidebar-indicator">▸</span>
+          {LINK.TEXT}
+        </a>
+      ))
+    }
+  </nav>
+
+  <div class="sidebar-footer">
+    <!-- Theme Toggle -->
+    <button id="header-theme-button" onclick="changeTheme()" aria-label="Toggle theme" class="theme-toggle-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle>
+        <circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle>
+        <circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle>
+        <circle cx="6.5" cy="12" r=".5" fill="currentColor"></circle>
+        <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path>
+      </svg>
+      <span class="theme-label">Theme</span>
+    </button>
+
+  </div>
+</aside>
+
+<!-- Mobile Header -->
+<header id="mobile-header" class="mobile-header">
+  <div class="mobile-actions">
+    <button id="mobile-theme-btn" onclick="changeTheme()" aria-label="Toggle theme" class="mobile-theme-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle>
+        <circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle>
+        <circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle>
+        <circle cx="6.5" cy="12" r=".5" fill="currentColor"></circle>
+        <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path>
+      </svg>
+    </button>
+    <button id="mobile-menu-btn" aria-label="Toggle menu" class="mobile-menu-btn">
+      <svg class="icon-menu" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+      <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile Overlay -->
+<div id="mobile-overlay" class="mobile-overlay"></div>
+
+<style>
+  .sidebar {
+    position: sticky;
+    top: 0;
+    width: 200px;
+    min-width: 200px;
+    height: 100vh;
+    padding: 48px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    z-index: 40;
+    background: rgb(var(--brand-bg));
+    border-right: 1px solid rgb(var(--brand-text) / 0.1);
+    flex-shrink: 0;
+  }
+
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 8px;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: rgb(var(--brand-text) / 0.55);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    border-radius: 4px;
+  }
+
+  .sidebar-link:hover {
+    color: rgb(var(--brand-text));
+  }
+
+  .sidebar-link.active {
+    color: rgb(var(--brand-text));
+    font-weight: 700;
+  }
+
+  .sidebar-indicator {
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    width: 14px;
+    flex-shrink: 0;
+  }
+
+  .sidebar-link.active .sidebar-indicator {
+    opacity: 1;
+  }
+
+  .sidebar-footer {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Theme toggle */
+  .theme-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    background: none;
+    border: 1px solid rgb(var(--brand-text) / 0.1);
+    border-radius: 6px;
+    cursor: pointer;
+    color: rgb(var(--brand-text) / 0.5);
+    font-family: inherit;
+    font-size: 12px;
+    transition: all 0.2s ease;
+    width: 100%;
+  }
+
+  .theme-toggle-btn:hover {
+    color: rgb(var(--brand-text) / 0.8);
+    border-color: rgb(var(--brand-text) / 0.2);
+    background: rgb(var(--brand-text) / 0.04);
+  }
+
+  .theme-label {
+    font-size: 12px;
+  }
+
+
+  .sidebar-version-wrap {
+    padding-top: 0;
+  }
+
+  .sidebar-version {
+    font-size: 11px;
+    color: rgb(var(--brand-text) / 0.3);
+    line-height: 1.5;
+  }
+
+  /* Mobile header */
+  .mobile-header {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    padding: 0 20px;
+    align-items: center;
+    justify-content: flex-end;
+    z-index: 50;
+    background: rgb(var(--brand-bg) / 0.95);
+    backdrop-filter: blur(8px);
+  }
+
+
+
+  .mobile-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .mobile-menu-btn,
+  .mobile-theme-btn {
+    background: none;
+    border: none;
+    color: rgb(var(--brand-text) / 0.7);
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+  }
+
+  .mobile-menu-btn:hover,
+  .mobile-theme-btn:hover {
+    background: rgb(var(--brand-text) / 0.06);
+  }
+
+  .mobile-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 45;
+    background: rgb(var(--brand-bg) / 0.98);
+    backdrop-filter: blur(12px);
+  }
+
+  .mobile-overlay.open {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  @media (max-width: 768px) {
+    .sidebar {
+      display: none;
+    }
+    .mobile-header {
+      display: flex;
+    }
+    .mobile-overlay .sidebar-link {
+      font-size: 28px;
+      padding: 3px 16px;
+    }
+  }
+</style>
+
+<script is:inline>
+  function initMobileMenu() {
+    const btn = document.getElementById('mobile-menu-btn');
+    const overlay = document.getElementById('mobile-overlay');
+    const sidebar = document.getElementById('sidebar');
+    
+    if (!btn || !overlay) return;
+
+    // Clone sidebar nav into overlay
+    overlay.innerHTML = '';
+    const navClone = sidebar?.querySelector('.sidebar-nav')?.cloneNode(true);
+    if (navClone) {
+      overlay.appendChild(navClone);
+    }
+    
+    btn.addEventListener('click', () => {
+      const isOpen = overlay.classList.toggle('open');
+      btn.classList.toggle('open', isOpen);
+      btn.querySelector('.icon-menu').style.display = isOpen ? 'none' : 'block';
+      btn.querySelector('.icon-close').style.display = isOpen ? 'block' : 'none';
+    });
+
+    // Close when clicking a link in overlay
+    overlay.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        overlay.classList.remove('open');
+        btn.classList.remove('open');
+        btn.querySelector('.icon-menu').style.display = 'block';
+        btn.querySelector('.icon-close').style.display = 'none';
+      });
+    });
+
+    // Mobile theme button
+    const mobileThemeBtn = document.getElementById('mobile-theme-btn');
+    mobileThemeBtn?.addEventListener('click', () => {
+      if (typeof changeTheme === 'function') {
+        changeTheme();
+      }
+    });
+  }
+
+  document.addEventListener('astro:after-swap', initMobileMenu);
+  initMobileMenu();
+</script>

@@ -6,7 +6,6 @@ draft: false
 tags:
 - AI
 - MongoDB
-- Vector Database
 
 repoUrl: https://github.com/shubham-kumr/LogicMed
 

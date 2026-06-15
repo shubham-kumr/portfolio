@@ -4,10 +4,8 @@ summary: "Machine learning models for predicting heart disease using Logistic Re
 date: "Dec 7 2024"
 draft: false
 tags:
-- Machine Learning
-- Classification
 - Python
-- scikit-learn
+- Machine Learning
 
 repoUrl: https://github.com/shubham-kumr/heart_disease_prediction 
 ---

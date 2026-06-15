@@ -1,0 +1,132 @@
+---
+import PageLayout from "@layouts/PageLayout.astro"
+import { SITE, SOCIALS, SOCIAL } from "@consts"
+---
+
+<PageLayout title={SOCIAL.TITLE} description={SOCIAL.DESCRIPTION}>
+  <div class="social-page">
+
+    <h1 class="social-heading">Connect</h1>
+    <p class="social-subtitle">Reach out to me via email or on social media.</p>
+
+    <div class="social-grid">
+      {SOCIALS.map(social => (
+        <a href={social.HREF} target="_blank" rel="noopener noreferrer" class="social-card">
+          <div class="social-card-icon">
+            <svg class="social-svg">
+              <use href={`/social.svg#${social.ICON}`} />
+            </svg>
+          </div>
+          <div class="social-card-info">
+            <span class="social-card-name">{social.NAME}</span>
+            <span class="social-card-text">{social.TEXT}</span>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-card-arrow">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+      ))}
+    </div>
+
+  </div>
+</PageLayout>
+
+<style>
+  .social-page {
+    max-width: 640px;
+    padding: 48px 24px 64px;
+  }
+
+  .social-heading {
+    font-size: 20px;
+    font-weight: 600;
+    color: rgb(var(--brand-text));
+    margin: 0 0 8px;
+  }
+
+  .social-subtitle {
+    font-size: 14px;
+    color: rgb(var(--brand-text) / 0.5);
+    margin: 0 0 32px;
+  }
+
+  .social-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .social-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 0;
+    border-radius: 8px;
+    text-decoration: none;
+    color: rgb(var(--brand-text));
+    transition: background-color 0.2s ease;
+    width: 100%;
+  }
+
+  .social-card:hover {
+    background: rgb(var(--brand-text) / 0.04);
+  }
+
+  .social-card-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: rgb(var(--brand-text) / 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .social-svg {
+    width: 18px;
+    height: 18px;
+    fill: rgb(var(--brand-text) / 0.6);
+  }
+
+  .social-card-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .social-card-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgb(var(--brand-text));
+    line-height: 1.3;
+  }
+
+  .social-card-text {
+    font-size: 12px;
+    color: rgb(var(--brand-text) / 0.45);
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .social-card-arrow {
+    color: rgb(var(--brand-text) / 0.2);
+    flex-shrink: 0;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+
+  .social-card:hover .social-card-arrow {
+    color: rgb(var(--brand-text) / 0.5);
+    transform: translate(2px, -2px);
+  }
+
+  @media (max-width: 768px) {
+    .social-page {
+      padding: 72px 20px 48px;
+    }
+  }
+</style>

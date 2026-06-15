@@ -1,8 +1,6 @@
 ---
 import { getCollection } from "astro:content"
 import PageLayout from "@layouts/PageLayout.astro"
-import TopLayout from "@layouts/TopLayout.astro"
-import BottomLayout from "@layouts/BottomLayout.astro"
 import Projects from "@components/Projects"
 import { PROJECTS } from "@consts"
 
@@ -15,14 +13,62 @@ const tags = [...new Set(projects.flatMap(project => project.data.tags))]
 ---
 
 <PageLayout title={PROJECTS.TITLE} description={PROJECTS.DESCRIPTION}>
-  <TopLayout>
-    <div class="animate page-heading">
-      {PROJECTS.TITLE}
-    </div>
-  </TopLayout>
-  <BottomLayout>
-    <div class="animate">
-      <Projects client:load tags={tags} data={projects} />
-    </div>
-  </BottomLayout>
+  <div class="projects-page">
+    <h1 class="projects-heading">{PROJECTS.TITLE}</h1>
+    <p class="projects-subtitle">{PROJECTS.DESCRIPTION}</p>
+
+    <Projects client:load tags={tags} data={projects} />
+  </div>
 </PageLayout>
+
+<style>
+  .projects-page {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+  }
+
+  .projects-heading {
+    font-size: 20px;
+    font-weight: 600;
+    color: rgb(var(--brand-text));
+    margin: 0 0 8px;
+  }
+
+  .projects-subtitle {
+    font-size: 14px;
+    color: rgb(var(--brand-text) / 0.5);
+    margin: 0 0 24px;
+  }
+
+  @media (max-width: 1024px) {
+    .projects-page {
+      padding: 48px 20px 56px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .projects-page {
+      padding: 24px 20px 48px;
+      max-width: 100%;
+    }
+
+    .projects-heading {
+      font-size: 18px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .projects-page {
+      padding: 16px 16px 40px;
+    }
+
+    .projects-heading {
+      font-size: 16px;
+    }
+
+    .projects-subtitle {
+      font-size: 12px;
+    }
+  }
+</style>

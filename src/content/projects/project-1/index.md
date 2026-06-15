@@ -4,12 +4,9 @@ summary: "A full-stack NFT minting dApp on Polygon using Solidity, Hardhat, Node
 date: "April 22 2025"
 draft: false
 tags:
-- Solidity
-- Hardhat
+- Blockchain
 - Node.js
-- Express.js
-- Ethers.js
-- Polygon
+- Solidity
 demoUrl: https://opensea.io/assets/matic/0x176875001b4aa9b6fe1439bbe7aea0dc61223190/0
 repoUrl: https://github.com/shubham-kumr/nftverse
 ---

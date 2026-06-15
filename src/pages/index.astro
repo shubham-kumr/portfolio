@@ -1,189 +1,581 @@
 ---
-import { getCollection } from "astro:content"
-import PageLayout from "@layouts/PageLayout.astro"
-import ArrowCard from "@components/ArrowCard"
-import StackCard from "@components/StackCard.astro"
-import { SITE, SOCIALS } from "@consts"
-import TwinklingStars from "@components/TwinklingStars.astro"
-import MeteorShower from "@components/MeteorShower.astro"
+import { getCollection } from "astro:content";
+import PageLayout from "@layouts/PageLayout.astro";
+import { SITE, SOCIALS } from "@consts";
 
-const posts = (await getCollection("blog"))
-  .filter(post => !post.data.draft)
-  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
-  .slice(0,3)
-
-const asciiArt = String.raw`
-      ___           ___           ___           ___           ___           ___           ___     
-     /\  \         /\__\         /\__\         /\  \         /\__\         /\  \         /\__\    
-    /::\  \       /:/  /        /:/  /        /::\  \       /:/  /        /::\  \       /::|  |   
-   /:/\ \  \     /:/__/        /:/  /        /:/\:\  \     /:/__/        /:/\:\  \     /:|:|  |   
-  _\:\~\ \  \   /::\  \ ___   /:/  /  ___   /::\~\:\__\   /::\  \ ___   /::\~\:\  \   /:/|:|__|__ 
- /\ \:\ \ \__\ /:/\:\  /\__\ /:/__/  /\__\ /:/\:\ \:|__| /:/\:\  /\__\ /:/\:\ \:\__\ /:/ |::::\__\
- \:\ \:\ \/__/ \/__\:\/:/  / \:\  \ /:/  / \:\~\:\/:/  / \/__\:\/:/  / \/__\:\/:/  / \/__/~~/:/  /
-  \:\ \:\__\        \::/  /   \:\  /:/  /   \:\ \::/  /       \::/  /       \::/  /        /:/  / 
-   \:\/:/  /        /:/  /     \:\/:/  /     \:\/:/  /        /:/  /        /:/  /        /:/  /  
-    \::/  /        /:/  /       \::/  /       \::/__/        /:/  /        /:/  /        /:/  /   
-     \/__/         \/__/         \/__/         ~~            \/__/         \/__/         \/__/    
-`;
-
+const projects = (await getCollection("projects"))
+  .filter((project) => !project.data.draft)
+  .sort(
+    (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
+  )
+  .slice(0, 1);
 ---
 
-<PageLayout title="Home" description={SITE.DESCRIPTION}>
+<PageLayout title="Profile" description={SITE.DESCRIPTION}>
+  <div class="profile-page">
+    <!-- ASCII Art -->
+    <pre class="ascii-art">
+███████╗██╗  ██╗██╗   ██╗██████╗ ██╗  ██╗ █████╗ ███╗   ███╗
+██╔════╝██║  ██║██║   ██║██╔══██╗██║  ██║██╔══██╗████╗ ████║
+███████╗███████║██║   ██║██████╔╝███████║███████║██╔████╔██║
+╚════██║██╔══██║██║   ██║██╔══██╗██╔══██║██╔══██║██║╚██╔╝██║
+███████║██║  ██║╚██████╔╝██████╔╝██║  ██║██║  ██║██║ ╚═╝ ██║
+╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝
+    </pre>
 
-  <!-- Light Mode: Particles -->
-  <div class='absolute inset-0 block dark:hidden'>
-    <div id='particles1' class='fixed inset-0'></div>
-    <div id='particles2' class='fixed inset-0'></div>
-    <div id='particles3' class='fixed inset-0'></div>
-  </div>
-
-  <!-- Dark Theme: Stars -->
-  <div class='absolute inset-0 bg-black hidden dark:block'>
-    <div id='stars1' class='fixed inset-0'></div>
-    <div id='stars2' class='fixed inset-0'></div>
-    <div id='stars3' class='fixed inset-0'></div>
-  </div>
-
-  <!-- Dark Theme: Twinkling Stars / Metors -->
-  <div id="galaxy" class="fixed inset-0">
-    <div class="hidden dark:block">
-      <TwinklingStars/>
-      <MeteorShower/>
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <div class="profile-info">
+        <h1 class="profile-name">{SITE.TITLE}</h1>
+        <p class="profile-role">
+          Cybersecurity Engineer, Full-Stack Developer and Continuous Learner
+        </p>
+        <a
+          href="https://github.com/shubham-kumr"
+          target="_blank"
+          class="profile-website">github.com/shubham-kumr</a
+        >
+      </div>
     </div>
-  </div>
 
-  <script is:inline src="/js/bg.js"></script>
-  
-  <style>
-    @keyframes wave {
-      0% { transform: rotate(0.0deg) }
-      10% { transform: rotate(14.0deg) }
-      20% { transform: rotate(-8.0deg) }
-      30% { transform: rotate(14.0deg) }
-      40% { transform: rotate(-4.0deg) }
-      50% { transform: rotate(10.0deg) }
-      60% { transform: rotate(0.0deg) }
-      100% { transform: rotate(0.0deg) }
-    }
-    .animate-wave {
-      animation: wave 2.5s infinite;
-      transform-origin: 70% 70%;
-      display: inline-block;
-    }
-  </style>
-
-  <!-- HERO -->
-  <section class="relative h-screen w-full flex flex-col items-center justify-center">
-    <div class="animate flex flex-col items-center justify-center w-full max-w-full px-5">
-      
-
-
-      <!-- ASCII Art Centered -->
-      <div id="ascii-art" class="flex justify-center w-full overflow-hidden mb-6">
-        <pre class="font-mono text-[6px] sm:text-[9px] md:text-[12px] lg:text-[14px] xl:text-[16px] text-brand-text leading-[1.1] whitespace-pre font-bold" set:text={asciiArt} />
-      </div>
-
-      <!-- TL;DR -->
-      <p class="text-base md:text-lg lg:text-xl opacity-75 text-center mt-2 max-w-lg">
-        <i><b>Cybersecurity</b> learner focused on <b>vulnerability assessment</b> and <b>system security</b>.</i>
-      </p>
-
-      <!-- View Resume Button (ASCII Style) -->
-      <div class="mt-8 flex gap-4">
-        <a href="https://drive.google.com/file/d/134iCB3Sub08e1JGJnJvEoTF0mpIUClPX/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="font-mono text-sm md:text-base border border-current px-4 py-2 rounded-full text-brand-text hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors blend">
-          [View Resume]
-        </a>
-      </div>
-      
-      <!-- Connect CTA -->
-      <div class="mt-6 text-xs md:text-sm text-center">
-         <span>Want to connect? </span>
-         <a href="#lets-connect" class="underline decoration-[.5px] decoration-zinc-500 text-zinc-500 hover:text-zinc-300 transition" onclick="event.preventDefault();document.getElementById('lets-connect').scrollIntoView({ behavior: 'smooth' })">Let's Connect</a>
-      </div>
-
+    <!-- Tab Bar -->
+    <div class="profile-tabs">
+      <button class="tab-btn active" data-tab="information">Information</button>
+      <span class="tab-spacer"></span>
+      <a
+        href="mailto:forshubhamkumar@gmail.com"
+        class="tab-mail"
+        aria-label="Compose email"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+        </svg>
+      </a>
+      <span class="tab-compose">···</span>
     </div>
-  </section>
 
-  <div class="relative bg-brand-bg">
-    <div class="mx-auto max-w-screen-sm p-5 space-y-24 pb-16">
-
-      <!-- About Section -->
-      <section class="animate">
-<article>
-  <p>
-    I am a <b><i>Computer Science undergraduate</i></b> with a strong focus on <b><i>cybersecurity</i></b>, complemented by a background in <b><i>full-stack development</i></b>. My work centers on understanding how systems function, identifying where they fail, and applying secure development practices to build resilient applications.
-  </p>
-
-  <p>
-    Ranked in the <b><i>top 1% globally on TryHackMe</i></b>, I have completed 200+ hands-on labs covering <b><i>penetration testing</i></b>, <b><i>vulnerability assessment</i></b>, and <b><i>defensive security</i></b>. This practical exposure allows me to approach problems with an <b><i>attacker’s mindset</i></b> while implementing solutions as a developer.
-  </p>
-
-  <p>
-    I have experience working with industry-standard tools such as <b><i>Burp Suite</i></b>, <b><i>OWASP ZAP</i></b>, <b><i>Nmap</i></b>, <b><i>Wireshark</i></b>, and <b><i>Metasploit</i></b> to analyze, exploit, and secure systems in controlled environments.
-  </p>
-
-  <!-- <p>
-    Alongside cybersecurity, I continue to build full-stack applications with a strong emphasis on <b><i>clean code</i></b>, <b><i>intuitive user experience</i></b>, and <b><i>secure architecture</i></b>. My approach combines development and security—ensuring that the systems I create are not only functional and user-friendly, but also resilient against real-world threats.
-  </p> -->
-
-  <p>
-    I am currently pursuing my <b><i>Bachelor’s degree in Computer Science</i></b> from <b><i>Lloyd Institute of Engineering and Technology</i></b>, Greater Noida, while continuously improving my skills through practical projects and structured learning paths.
-  </p>
-</article>
-</section>
-
-
-      <!-- Blog Preview Section -->
-      <section class="animate">
-        <div class="space-y-4">
-          <div class="flex justify-between">
-            <p class="font-semibold text-brand-text">
-              Recent posts
-            </p>
-            <a href="/blog" class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-brand-text underline-offset-2 blend">
-              <span class="text-brand-text/75 group-hover:text-brand-text blend">
-                All posts
-              </span>
-            </a>
-          </div>
-          <ul class="space-y-4">
-            {posts.map((post) => (
-              <li>
-                <ArrowCard entry={post} />
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-
-
-      <!-- Contact Section -->
-  <section class="animate" id="lets-connect">
-        <div>
-          <p class="font-semibold text-brand-text">
-            Let's Connect
-          </p>
-          <p>
-            Reach out to me via email or on social media.
-          </p>
-          <div class="grid grid-cols-4 gap-y-2 mt-4 auto-cols-min">
-            {SOCIALS.map(social => (
-              <div class="col-span-1 flex items-center gap-1">
-                <span class="whitespace-nowrap truncate">
-                  {social.NAME}
-                </span>
-              </div>
-              <div class="col-span-3 truncate">
-                <a href={social.HREF} target="_blank" class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-brand-text underline-offset-2 blend">
-                  <span class="text-brand-text/75 group-hover:text-brand-text blend">
-                    {social.TEXT}
-                  </span>
+    <!-- Information Content -->
+    <div class="profile-content" id="tab-information">
+      <!-- Projects Section -->
+      <div class="info-section">
+        <div class="info-label">Latest Project</div>
+        <div class="info-body">
+          {
+            projects.map((project) => (
+              <div class="project-item">
+                <a
+                  href={project.data.repoUrl || `/projects/${project.slug}`}
+                  target="_blank"
+                  class="project-title"
+                >
+                  {project.data.title}
                 </a>
+                <p class="project-desc">{project.data.summary}</p>
+                <div class="project-tags">
+                  {project.data.tags.slice(0, 4).map((tag: string) => (
+                    <span class="project-tag">{tag}</span>
+                  ))}
+                </div>
               </div>
-            ))}
+            ))
+          }
         </div>
-      </section>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- Previously Section -->
+      <div class="info-section">
+        <div class="info-label">Previously</div>
+        <div class="info-body">
+          <p>
+            <strong>Salesforce Developer Trainee Intern</strong> — <strong
+              >Techmatrix Consulting Pvt. Ltd</strong
+            >
+            <br /><span
+              style="font-size: 13px; color: rgb(var(--brand-text) / 0.45);"
+              >Sep 2024 — Jan 2025</span
+            >
+          </p>
+          <p style="margin-top: 12px;">
+            Developed a Salesforce-based Food Ordering System using <strong
+              >Apex</strong
+            >, <strong>Lightning Components</strong>, and <strong
+              >workflow automation</strong
+            >, implementing role-based access control (RBAC), secure
+            authentication flows, and handling multiple user roles with
+            end-to-end order processing.
+          </p>
+          <p style="margin-top: 12px;">
+            Designed data models and implemented business logic using <strong
+              >Apex classes and triggers</strong
+            >, supporting 10+ CRM workflows while improving data security, input
+            validation, and overall system efficiency.
+          </p>
+        </div>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- Connect Section -->
+      <div class="info-section">
+        <div class="info-label">Connect</div>
+        <div class="info-body">
+          <div class="social-links">
+            {
+              SOCIALS.map((social) => (
+                <a
+                  href={social.HREF}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="social-link-item"
+                >
+                  <svg class="social-link-icon">
+                    <use href={`/social.svg#${social.ICON}`} />
+                  </svg>
+                  <span class="social-link-name">{social.NAME}</span>
+                  <span class="social-link-text">{social.TEXT}</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="social-link-arrow"
+                  >
+                    <line x1="7" y1="17" x2="17" y2="7" />
+                    <polyline points="7 7 17 7 17 17" />
+                  </svg>
+                </a>
+              ))
+            }
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </PageLayout>
+
+<style>
+  .profile-page {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+  }
+  .ascii-art {
+    font-family: "Fira Mono", SFMono-Regular, Consolas, monospace;
+    font-size: clamp(7.5px, 2.2vw, 15.5px);
+    line-height: 1.15;
+    color: rgb(var(--brand-text) / 0.25);
+    margin: 0 0 24px;
+    overflow-x: auto;
+    white-space: pre;
+    word-wrap: normal;
+    word-break: normal;
+    user-select: none;
+    letter-spacing: normal;
+  }
+
+  /* Header */
+  .profile-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .profile-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+    background: rgb(var(--brand-text) / 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .avatar-initials {
+    font-size: 20px;
+    font-weight: 700;
+    color: rgb(var(--brand-text) / 0.5);
+    letter-spacing: -0.5px;
+  }
+
+  .profile-info {
+    min-width: 0;
+  }
+
+  .profile-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: rgb(var(--brand-text));
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .profile-role {
+    font-size: 13px;
+    color: rgb(var(--brand-text) / 0.6);
+    margin: 2px 0;
+    line-height: 1.4;
+  }
+
+  .profile-website {
+    font-size: 13px;
+    color: rgb(var(--brand-text));
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-color: rgb(var(--brand-text) / 0.3);
+  }
+
+  .profile-website:hover {
+    text-decoration-color: rgb(var(--brand-text));
+  }
+
+  /* Meta */
+  .profile-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    padding-top: 4px;
+  }
+
+  .meta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: rgb(var(--brand-text) / 0.55);
+  }
+
+  .meta-date {
+    font-size: 12px;
+    color: rgb(var(--brand-text) / 0.4);
+  }
+
+  /* Tabs */
+  .profile-tabs {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgb(var(--brand-text) / 0.1);
+    margin-bottom: 32px;
+    gap: 0;
+  }
+
+  .tab-btn {
+    background: none;
+    border: none;
+    padding: 10px 16px 10px 0;
+    font-size: 13.5px;
+    color: rgb(var(--brand-text) / 0.5);
+    cursor: pointer;
+    position: relative;
+    font-family: inherit;
+    transition: color 0.2s ease;
+  }
+
+  .tab-btn:hover {
+    color: rgb(var(--brand-text) / 0.8);
+  }
+
+  .tab-btn.active {
+    color: rgb(var(--brand-text));
+    font-weight: 500;
+  }
+
+  .tab-btn.active::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 16px;
+    height: 2px;
+    background: rgb(var(--brand-text));
+    border-radius: 1px;
+  }
+
+  .tab-spacer {
+    flex: 1;
+  }
+
+  .tab-compose {
+    font-size: 18px;
+    color: rgb(var(--brand-text) / 0.3);
+    letter-spacing: 2px;
+    cursor: pointer;
+    padding: 10px 0;
+    margin-left: 12px;
+  }
+
+  /* Content */
+  .info-section {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 0 24px;
+    margin-bottom: 28px;
+  }
+
+  .info-label {
+    font-size: 13px;
+    color: rgb(var(--brand-text) / 0.45);
+    padding-top: 2px;
+    font-weight: 400;
+  }
+
+  .info-body {
+    font-size: 16px;
+    color: rgb(var(--brand-text) / 0.75);
+    line-height: 1.7;
+  }
+
+  .info-body p {
+    margin: 0;
+    text-align: justify;
+  }
+
+  .info-body strong {
+    color: rgb(var(--brand-text));
+    font-weight: 500;
+  }
+
+  .inline-link {
+    color: rgb(var(--brand-text));
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-color: rgb(var(--brand-text) / 0.3);
+  }
+
+  .inline-link:hover {
+    text-decoration-color: rgb(var(--brand-text));
+  }
+
+  .section-divider {
+    border: none;
+    border-top: 1px solid rgb(var(--brand-text) / 0.08);
+    margin: 32px 0;
+  }
+
+  /* Project Items */
+  .project-item {
+    margin-bottom: 24px;
+  }
+
+  .project-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .project-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgb(var(--brand-text));
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-color: rgb(var(--brand-text) / 0.3);
+  }
+
+  .project-title:hover {
+    text-decoration-color: rgb(var(--brand-text));
+  }
+
+  .project-desc {
+    font-size: 13px;
+    color: rgb(var(--brand-text) / 0.55);
+    margin: 4px 0 8px;
+    line-height: 1.5;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .project-tag {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgb(var(--brand-text) / 0.06);
+    color: rgb(var(--brand-text) / 0.55);
+  }
+
+  /* Responsive */
+
+  /* Small laptops / large tablets */
+  @media (max-width: 1024px) {
+    .profile-page {
+      padding: 48px 20px 56px;
+    }
+  }
+
+  /* Tablets */
+  @media (max-width: 768px) {
+    .profile-page {
+      padding: 24px 20px 48px;
+      max-width: 100%;
+    }
+
+    .ascii-art {
+      margin: 0 0 20px;
+    }
+
+    .info-section {
+      grid-template-columns: 1fr;
+      gap: 6px 0;
+    }
+
+    .info-label {
+      font-weight: 500;
+      color: rgb(var(--brand-text) / 0.55);
+    }
+
+    .profile-header {
+      margin-bottom: 12px;
+    }
+
+    .profile-tabs {
+      margin-bottom: 24px;
+    }
+
+    .social-link-text {
+      display: block;
+    }
+  }
+
+  /* Mobile phones */
+  @media (max-width: 480px) {
+    .profile-page {
+      padding: 16px 16px 40px;
+    }
+
+    .ascii-art {
+      margin: 0 0 16px;
+    }
+
+    .profile-name {
+      font-size: 15px;
+    }
+
+    .profile-role {
+      font-size: 12px;
+    }
+
+    .profile-website {
+      font-size: 12px;
+    }
+
+    .tab-btn {
+      font-size: 12px;
+    }
+
+    .info-body {
+      font-size: 14px;
+    }
+
+    .social-link-text {
+      display: none;
+    }
+
+    .social-link-name {
+      font-size: 13px;
+    }
+
+    .section-divider {
+      margin: 16px 0;
+    }
+  }
+
+  /* Mail compose button */
+  .tab-mail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    color: rgb(var(--brand-text) / 0.4);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+  }
+
+  .tab-mail:hover {
+    color: rgb(var(--brand-text) / 0.8);
+    background: rgb(var(--brand-text) / 0.06);
+  }
+
+  /* Social links in Connect section */
+  .social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .social-link-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    text-decoration: none;
+    color: rgb(var(--brand-text));
+    border-bottom: 1px solid rgb(var(--brand-text) / 0.06);
+    transition: opacity 0.2s ease;
+  }
+
+  .social-link-item:last-child {
+    border-bottom: none;
+  }
+
+  .social-link-item:hover {
+    opacity: 0.7;
+  }
+
+  .social-link-icon {
+    width: 16px;
+    height: 16px;
+    fill: rgb(var(--brand-text) / 0.5);
+    flex-shrink: 0;
+  }
+
+  .social-link-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgb(var(--brand-text));
+    white-space: nowrap;
+  }
+
+  .social-link-text {
+    font-size: 13px;
+    color: rgb(var(--brand-text) / 0.4);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+  }
+
+  .social-link-arrow {
+    color: rgb(var(--brand-text) / 0.2);
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+  }
+
+  .social-link-item:hover .social-link-arrow {
+    color: rgb(var(--brand-text) / 0.5);
+    transform: translate(2px, -2px);
+  }
+</style>

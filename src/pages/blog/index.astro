@@ -1,9 +1,7 @@
 ---
 import { getCollection } from "astro:content"
 import PageLayout from "@layouts/PageLayout.astro"
-import TopLayout from "@layouts/TopLayout.astro"
-import BottomLayout from "@layouts/BottomLayout.astro"
-import Blog from "@components/Blog"
+import ArrowCard from "@components/ArrowCard"
 import { BLOG } from "@consts"
 
 const posts = (await getCollection("blog"))
@@ -15,16 +13,157 @@ const tags = [...new Set(posts.flatMap(post => post.data.tags))]
 ---
 
 <PageLayout title={BLOG.TITLE} description={BLOG.DESCRIPTION}>
-  <TopLayout>
-    <div class="animate page-heading">
-      {BLOG.TITLE}
+  <div class="blog-page">
+    <h1 class="blog-heading">{BLOG.TITLE}</h1>
+    <p class="blog-subtitle">{BLOG.DESCRIPTION}</p>
+
+    <!-- Tag Filter -->
+    <div class="blog-tags" id="blog-tags">
+      <button class="tag-btn active" data-tag="all">All</button>
+      {tags.map(tag => (
+        <button class="tag-btn" data-tag={tag}>{tag}</button>
+      ))}
     </div>
-  </TopLayout>
-  <BottomLayout>
-    <div class="animate">
-      <Blog client:load tags={tags} data={posts} />
-    </div>
-  </BottomLayout>
+
+    <!-- Posts -->
+    <ul class="blog-list">
+      {posts.map((post) => (
+        <li class="blog-item" data-tags={post.data.tags.join(",")}>
+          <ArrowCard entry={post} />
+        </li>
+      ))}
+    </ul>
+  </div>
 </PageLayout>
 
+<style>
+  .blog-page {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+  }
 
+  .blog-heading {
+    font-size: 20px;
+    font-weight: 600;
+    color: rgb(var(--brand-text));
+    margin: 0 0 8px;
+  }
+
+  .blog-subtitle {
+    font-size: 14px;
+    color: rgb(var(--brand-text) / 0.5);
+    margin: 0 0 24px;
+  }
+
+  .blog-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 24px;
+  }
+
+  .tag-btn {
+    background: none;
+    border: 1px solid rgb(var(--brand-text) / 0.12);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: rgb(var(--brand-text) / 0.55);
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s ease;
+  }
+
+  .tag-btn:hover {
+    border-color: rgb(var(--brand-text) / 0.3);
+    color: rgb(var(--brand-text) / 0.8);
+  }
+
+  .tag-btn.active {
+    background: rgb(var(--brand-text));
+    color: rgb(var(--brand-bg));
+    border-color: rgb(var(--brand-text));
+  }
+
+  .blog-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .blog-item {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .blog-item.hidden {
+    display: none;
+  }
+
+  @media (max-width: 1024px) {
+    .blog-page {
+      padding: 48px 20px 56px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .blog-page {
+      padding: 24px 20px 48px;
+      max-width: 100%;
+    }
+
+    .blog-heading {
+      font-size: 18px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .blog-page {
+      padding: 16px 16px 40px;
+    }
+
+    .blog-heading {
+      font-size: 16px;
+    }
+
+    .blog-subtitle {
+      font-size: 12px;
+    }
+  }
+</style>
+
+<script is:inline>
+  function initBlogFilter() {
+    const tagButtons = document.querySelectorAll('.tag-btn');
+    const blogItems = document.querySelectorAll('.blog-item');
+
+    tagButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Update active state
+        tagButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const selectedTag = btn.getAttribute('data-tag');
+
+        blogItems.forEach(item => {
+          if (selectedTag === 'all') {
+            item.classList.remove('hidden');
+          } else {
+            const itemTags = item.getAttribute('data-tags')?.split(',') || [];
+            if (itemTags.includes(selectedTag)) {
+              item.classList.remove('hidden');
+            } else {
+              item.classList.add('hidden');
+            }
+          }
+        });
+      });
+    });
+  }
+
+  document.addEventListener('astro:after-swap', initBlogFilter);
+  initBlogFilter();
+</script>

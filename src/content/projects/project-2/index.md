@@ -5,8 +5,7 @@ date: "April 12 2025"
 draft: false
 tags:
 - Python
-- FastAPI
-- Streamlit
+- AI
 - Docker
 repoUrl: https://github.com/shubham-kumr/project_carbon
 ---

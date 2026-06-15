@@ -2,7 +2,7 @@ const themes = ["dark", "dracula", "neon", "solarized-dark", "gruvbox", "retro",
 
 function changeTheme() {
   const element = document.documentElement;
-  const currentTheme = element.getAttribute("data-theme") || "dark";
+  const currentTheme = element.getAttribute("data-theme") || "gruvbox";
   const currentIndex = themes.indexOf(currentTheme);
   const nextTheme = themes[(currentIndex + 1) % themes.length];
 
@@ -40,7 +40,7 @@ function preloadTheme() {
     if (themes.includes(userTheme)) {
       return userTheme;
     } else {
-      return "dark"; // Default theme
+      return "gruvbox"; // Default theme
     }
   })();
 
@@ -56,18 +56,23 @@ function preloadTheme() {
   localStorage.theme = theme;
 }
 
-window.onload = () => {
-  function initializeThemeButtons() {
-    const headerThemeButton = document.getElementById("header-theme-button");
-    const drawerThemeButton = document.getElementById("drawer-theme-button");
-    headerThemeButton?.addEventListener("click", changeTheme);
-    drawerThemeButton?.addEventListener("click", changeTheme);
-  } 
-  
-  document.addEventListener("astro:after-swap", initializeThemeButtons);
+function initializeThemeButtons() {
+  const headerThemeButton = document.getElementById("header-theme-button");
+  const drawerThemeButton = document.getElementById("drawer-theme-button");
+  const mobileThemeBtn = document.getElementById("mobile-theme-btn");
+  headerThemeButton?.addEventListener("click", changeTheme);
+  drawerThemeButton?.addEventListener("click", changeTheme);
+  mobileThemeBtn?.addEventListener("click", changeTheme);
+}
+
+// Initialize on page load
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeThemeButtons);
+} else {
   initializeThemeButtons();
 }
 
 document.addEventListener("astro:after-swap", preloadTheme);
+document.addEventListener("astro:after-swap", initializeThemeButtons);
 
 preloadTheme();
