@@ -8,8 +8,14 @@ const projects = (await getCollection("projects"))
   .filter(project => !project.data.draft)
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
 
-const tags = [...new Set(projects.flatMap(project => project.data.tags))]
-  .sort((a, b) => a.localeCompare(b))
+const tags = projects.flatMap(project => project.data.tags)
+  .reduce((acc, tag) => {
+    if (!acc.some((t: string) => t.toLowerCase() === tag.toLowerCase())) {
+      acc.push(tag)
+    }
+    return acc
+  }, [] as string[])
+  .sort((a: string, b: string) => a.localeCompare(b))
 ---
 
 <PageLayout title={PROJECTS.TITLE} description={PROJECTS.DESCRIPTION}>

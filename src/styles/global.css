@@ -66,7 +66,14 @@ html[data-theme="gruvbox"] {
 
 html {
   overflow: hidden;
-  font-family: "Poppins", sans-serif;
+  font-family: "Instrument Serif", serif;
+  letter-spacing: 0.05em;
+  font-size: 17px;
+}
+
+strong {
+  font-weight: 700;
+  text-shadow: 0.2px 0 0 currentColor, -0.2px 0 0 currentColor;
 }
 
 html,

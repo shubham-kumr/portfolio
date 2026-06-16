@@ -1,5 +1,5 @@
 import type { CollectionEntry } from "astro:content"
-import { createEffect, createSignal, For } from "solid-js"
+import { createSignal, For } from "solid-js"
 import ArrowCard from "@components/ArrowCard"
 import { cn } from "@lib/utils"
 
@@ -10,17 +10,18 @@ type Props = {
 
 export default function Blog({ data, tags }: Props) {
   const [filter, setFilter] = createSignal(new Set<string>())
-  const [posts, setPosts] = createSignal<CollectionEntry<"blog">[]>([])
-
-  createEffect(() => {
-    setPosts(data.filter((entry) => 
-      Array.from(filter()).every((value) => 
-        entry.data.tags.some((tag:string) => 
+  
+  const filteredPosts = () => {
+    const activeFilter = filter();
+    if (activeFilter.size === 0) return data;
+    return data.filter((entry) => 
+      Array.from(activeFilter).every((value) => 
+        entry.data.tags.some((tag: string) => 
           tag.toLowerCase() === String(value).toLowerCase()
         )
       )
-    ))
-  })
+    );
+  };
 
   function toggleTag(tag: string) {
     setFilter((prev) => 
@@ -56,10 +57,10 @@ export default function Blog({ data, tags }: Props) {
       <div class="col-span-3 sm:col-span-2">
         <div class="flex flex-col">
           <div class="text-sm uppercase mb-2">
-            SHOWING {posts().length} OF {data.length} POSTS
+            SHOWING {filteredPosts().length} OF {data.length} POSTS
           </div>
           <ul class="flex flex-col gap-3">
-            {posts().map((post) => (
+            {filteredPosts().map((post) => (
               <li>
                 <ArrowCard entry={post} />
               </li>

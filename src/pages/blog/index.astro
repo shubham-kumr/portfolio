@@ -1,15 +1,21 @@
 ---
 import { getCollection } from "astro:content"
 import PageLayout from "@layouts/PageLayout.astro"
-import ArrowCard from "@components/ArrowCard"
+import Blog from "@components/Blog"
 import { BLOG } from "@consts"
 
 const posts = (await getCollection("blog"))
   .filter(post => !post.data.draft)
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
 
-const tags = [...new Set(posts.flatMap(post => post.data.tags))]
-  .sort((a, b) => a.localeCompare(b))
+const tags = posts.flatMap(post => post.data.tags)
+  .reduce((acc, tag) => {
+    if (!acc.some((t: string) => t.toLowerCase() === tag.toLowerCase())) {
+      acc.push(tag)
+    }
+    return acc
+  }, [] as string[])
+  .sort((a: string, b: string) => a.localeCompare(b))
 ---
 
 <PageLayout title={BLOG.TITLE} description={BLOG.DESCRIPTION}>
@@ -17,22 +23,7 @@ const tags = [...new Set(posts.flatMap(post => post.data.tags))]
     <h1 class="blog-heading">{BLOG.TITLE}</h1>
     <p class="blog-subtitle">{BLOG.DESCRIPTION}</p>
 
-    <!-- Tag Filter -->
-    <div class="blog-tags" id="blog-tags">
-      <button class="tag-btn active" data-tag="all">All</button>
-      {tags.map(tag => (
-        <button class="tag-btn" data-tag={tag}>{tag}</button>
-      ))}
-    </div>
-
-    <!-- Posts -->
-    <ul class="blog-list">
-      {posts.map((post) => (
-        <li class="blog-item" data-tags={post.data.tags.join(",")}>
-          <ArrowCard entry={post} />
-        </li>
-      ))}
-    </ul>
+    <Blog client:load tags={tags} data={posts} />
   </div>
 </PageLayout>
 
@@ -44,63 +35,16 @@ const tags = [...new Set(posts.flatMap(post => post.data.tags))]
   }
 
   .blog-heading {
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 600;
     color: rgb(var(--brand-text));
     margin: 0 0 8px;
   }
 
   .blog-subtitle {
-    font-size: 14px;
+    font-size: 0.875rem;
     color: rgb(var(--brand-text) / 0.5);
     margin: 0 0 24px;
-  }
-
-  .blog-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 24px;
-  }
-
-  .tag-btn {
-    background: none;
-    border: 1px solid rgb(var(--brand-text) / 0.12);
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    color: rgb(var(--brand-text) / 0.55);
-    cursor: pointer;
-    font-family: inherit;
-    transition: all 0.2s ease;
-  }
-
-  .tag-btn:hover {
-    border-color: rgb(var(--brand-text) / 0.3);
-    color: rgb(var(--brand-text) / 0.8);
-  }
-
-  .tag-btn.active {
-    background: rgb(var(--brand-text));
-    color: rgb(var(--brand-bg));
-    border-color: rgb(var(--brand-text));
-  }
-
-  .blog-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .blog-item {
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
-
-  .blog-item.hidden {
-    display: none;
   }
 
   @media (max-width: 1024px) {
@@ -116,7 +60,7 @@ const tags = [...new Set(posts.flatMap(post => post.data.tags))]
     }
 
     .blog-heading {
-      font-size: 18px;
+      font-size: 1.125rem;
     }
   }
 
@@ -126,44 +70,11 @@ const tags = [...new Set(posts.flatMap(post => post.data.tags))]
     }
 
     .blog-heading {
-      font-size: 16px;
+      font-size: 1rem;
     }
 
     .blog-subtitle {
-      font-size: 12px;
+      font-size: 0.75rem;
     }
   }
 </style>
-
-<script is:inline>
-  function initBlogFilter() {
-    const tagButtons = document.querySelectorAll('.tag-btn');
-    const blogItems = document.querySelectorAll('.blog-item');
-
-    tagButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        // Update active state
-        tagButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const selectedTag = btn.getAttribute('data-tag');
-
-        blogItems.forEach(item => {
-          if (selectedTag === 'all') {
-            item.classList.remove('hidden');
-          } else {
-            const itemTags = item.getAttribute('data-tags')?.split(',') || [];
-            if (itemTags.includes(selectedTag)) {
-              item.classList.remove('hidden');
-            } else {
-              item.classList.add('hidden');
-            }
-          }
-        });
-      });
-    });
-  }
-
-  document.addEventListener('astro:after-swap', initBlogFilter);
-  initBlogFilter();
-</script>
